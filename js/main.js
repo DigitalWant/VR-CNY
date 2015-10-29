@@ -7,11 +7,16 @@
  * All rights reserved.
 */
 var website_url = './';
+var gender = 'female/';
 var canvas, ctx;
 var canvas2, ctx2;
+var canvas3, ctx3;
+
 var oHead, oFringe, oEyebrow, oEye, oMouth, oTop;
 var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 var iSel = 0;
+
+
 
 function sendResultToServer(vData) {
     $('.scene .loading').show();
@@ -338,22 +343,22 @@ $(function() {
     canvas2 = document.getElementById('scene2');
     ctx2 = canvas2.getContext('2d');
     var oEyesImage = new Image();
-    oEyesImage.src = website_url + 'data/eyes.png';
+    oEyesImage.src = website_url + 'data/'+gender+'eyes.png';
     oEyesImage.onload = function() {};
     var oEyebrowImage = new Image();
-    oEyebrowImage.src = website_url + 'data/eyebrow.png';
+    oEyebrowImage.src = website_url + 'data/'+gender+'eyebrow.png';
     oEyebrowImage.onload = function() {};
     var oMouthsImage = new Image();
-    oMouthsImage.src = website_url + 'data/mouths.png';
+    oMouthsImage.src = website_url + 'data/'+gender+'mouths.png';
     oMouthsImage.onload = function() {};
     var oFaceImage = new Image();
-    oFaceImage.src = website_url + 'data/face.png';
+    oFaceImage.src = website_url + 'data/'+gender+'face.png';
     oFaceImage.onload = function() {};
     var oFringeImage = new Image();
-    oFringeImage.src = website_url + 'data/fringes.png';
+    oFringeImage.src = website_url + 'data/'+gender+'fringes.png';
     oFringeImage.onload = function() {};
     var oTopsImage = new Image();
-    oTopsImage.src = website_url + 'data/tops.png';
+    oTopsImage.src = website_url + 'data/'+gender+'tops.png';
     oTopsImage.onload = function() {};
     oColors = new Colors();
     oColorEyebrow = new Colors();
@@ -367,6 +372,9 @@ $(function() {
     oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
     oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
     setInterval(drawScene, 100);
+
+    //iSpr = index SpreadSheet
+
     $('#eye .type .set div').click(function() {
         oEye.iSpr = parseInt($(this).attr('val'))
     });

@@ -2,20 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>HTML5 Face Builder2</title>
   <link href="./css/main.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="./js/scriptMeta.js"></script>
-
 </head>
 
 <body>
+
+
   <!-- primary container -->
   <div class="container">
 
-    <!-- left column -->
-    <div class="left">
+    <!-- main -->
+    <div class="main">
       <div class="scene">
         <canvas id="scene" width="340" height="340"></canvas>
         <canvas id="scene2" width="340" height="340"></canvas>
@@ -31,13 +31,16 @@
         <button class="button">Generate Image</button>
       </div>
     </div>
-    <!-- end of left column -->
+    <!-- end of main -->
 
-    <!-- right column -->
-    <div class="right">
+    <!-- aside -->
+    <div class="aside">
+
+
 
       <!-- main type buttons -->
       <div id="ba_tabs" class="ba_tabs">
+        <a href="#gender" class="button">Gender</a>
         <a href="#fringes" class="button">Fringe</a>
         <a href="#eyebrows" class="button">Eyebrows</a>
         <a href="#eyes" class="button">Eyes</a>
@@ -60,6 +63,15 @@
         <span id="back"></span>
 
         <!-- internal panels list is here -->
+        <div id="gender">
+          <div class="type">
+            <h2>Gender</h2>
+            <div class="set">
+              <div val="female/">Female</div>
+              <div val="male/">Male</div>
+            </div>
+          </div>
+        </div>
         <div id="fringe">
           <div class="type">
             <h2>Fringe</h2>
@@ -338,10 +350,11 @@
       <!-- end of sliding panels -->
 
     </div>
-    <!-- end of right column -->
+    <!-- end of aside -->
   </div>
   <!-- end of primary container -->
   <div class="result"></div>
+
 
 
   <script type="text/javascript" src="./js/jquery.min.js"></script>
@@ -382,12 +395,6 @@
       } else {
         return false;
       }
-    }
-
-    if (is_iOS7()) {
-      video.addEventListener("webkitfullscreenchange", function(e) {
-        if (!document.webkitIsFullScreen);
-      }, false);
     }
   </script>
 </body>
