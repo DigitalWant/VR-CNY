@@ -342,6 +342,8 @@ $(function() {
     ctx = canvas.getContext('2d');
     canvas2 = document.getElementById('scene2');
     ctx2 = canvas2.getContext('2d');
+
+    //face Part
     var oEyesImage = new Image();
     oEyesImage.src = website_url + 'data/'+gender+'eyes.png';
     oEyesImage.onload = function() {};
@@ -360,21 +362,24 @@ $(function() {
     var oTopsImage = new Image();
     oTopsImage.src = website_url + 'data/'+gender+'tops.png';
     oTopsImage.onload = function() {};
+
     oColors = new Colors();
     oColorEyebrow = new Colors();
     oColorEye = new Colors();
     oColorTop = new Colors();
     oColorBack = new Colors();
+
     oHead = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
     oFringe = new Fringe(0, 0, 0, 0, 340, 340, oFringeImage);
     oEye = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
     oEyebrow = new Eyebrow(0, 0, 0, 0, 340, 340, oEyebrowImage);
     oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
     oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
+
+    //refresh the canvas
     setInterval(drawScene, 100);
 
-    //iSpr = index SpreadSheet
-
+    //iSpr : index SpreadSheet
     $('#eye .type .set div').click(function() {
         oEye.iSpr = parseInt($(this).attr('val'))
     });
