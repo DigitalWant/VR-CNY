@@ -7,15 +7,25 @@
  * All rights reserved.
 */
 var website_url = './';
-var gender = 'female/';
+
+//get basic parameter from url
+var str = window.location.search;
+var patt1 = new RegExp("gender=male");
+var gender = patt1.test(str) ? 'male/': 'female/';
+
+//canvas face builder relate
 var canvas, ctx;
 var canvas2, ctx2;
-var canvas3, ctx3;
-
 var oHead, oFringe, oEyebrow, oEye, oMouth, oTop;
 var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
-var iSel = 0;
 
+//canvas body builder relate
+var canvas3, ctx3;
+var canvas4, ctx4;
+var oBody, oLeg, oFoot, oAccessory, oBackground;
+
+//unknow
+var iSel = 0;
 
 
 function sendResultToServer(vData) {
@@ -42,8 +52,6 @@ function sendResultToServer(vData) {
         }
     );
 }
-
-
 
 function Colors() {
     this.iPos = 0;
@@ -208,13 +216,60 @@ function Top(x, y, x2, y2, w, h, image) {
     this.iSpr = 0
 }
 
+function Body(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
+function Leg(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
+
+function Foot(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
+
+function Background(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
+
+
 function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height)
+    ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
+    ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
+  //  ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
 }
 
 function drawScene() {
     clear();
+    //ctx
     ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w, oHead.h);
     ctx.drawImage(oTop.image, oTop.x2 + oTop.iSpr * oTop.w, oTop.y2, oTop.w, oTop.h, oTop.x, oTop.y, oTop.w, oTop.h);
     if (oColorTop.iPos > 0) {
@@ -275,6 +330,7 @@ function drawScene() {
         }
         ctx.putImageData(zdata, 2, 2)
     }
+    //ctx2
     ctx2.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x, oFringe.y, oFringe.w, oFringe.h);
     if (oColors.iPos > 0) {
         var iCp = oColors.iPos;
@@ -305,7 +361,15 @@ function drawScene() {
         }
         ctx2.putImageData(zdata, 0, 0)
     }
-    ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h)
+    ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h);
+
+    //ctx3 background
+    //ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
+
+
+
+    //ctx.drawImage()
+
 }
 
 function exportResult() {
@@ -342,6 +406,8 @@ $(function() {
     ctx = canvas.getContext('2d');
     canvas2 = document.getElementById('scene2');
     ctx2 = canvas2.getContext('2d');
+    canvas3 = document.getElementById('scene3');
+    ctx3 = canvas3.getContext('2d');
 
     //face Part
     var oEyesImage = new Image();
@@ -363,18 +429,41 @@ $(function() {
     oTopsImage.src = website_url + 'data/'+gender+'tops.png';
     oTopsImage.onload = function() {};
 
+    //body Part
+    var oBodyImage = new Image();
+    oBodyImage.src = website_url + 'data/' + gender + 'body.png';
+    oBodyImage.onload = function(){};
+    var oLegImage = new Image();
+    oLegImage.src = website_url + 'data/' + gender + 'leg.png';
+    oLegImage.onload = function(){};
+    var oFootImage = new Image();
+    oFootImage.src = website_url + 'data/' + gender + 'foot.png';
+    oFootImage.onload = function(){};
+    var oBackgroundImage = new Image();
+    oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
+    oBackgroundImage.onload = function(){};
+
+
+    //face part color object
     oColors = new Colors();
     oColorEyebrow = new Colors();
     oColorEye = new Colors();
     oColorTop = new Colors();
     oColorBack = new Colors();
 
+    //face part object
     oHead = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
     oFringe = new Fringe(0, 0, 0, 0, 340, 340, oFringeImage);
     oEye = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
     oEyebrow = new Eyebrow(0, 0, 0, 0, 340, 340, oEyebrowImage);
     oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
     oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
+
+    //body part object
+    oBody = new Body(0,0,0,0,340,340,oBodyImage);
+    oLeg = new Leg(0,0,0,0,340,340,oLeg);
+    oFoot = new Foot(0,0,0,0,340,340,oFoot);
+    oBackground = new Background(0,0,0,0,340,340,oBackground);
 
     //refresh the canvas
     setInterval(drawScene, 100);
