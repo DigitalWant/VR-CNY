@@ -24,9 +24,9 @@ var canvas3, ctx3;
 var canvas4, ctx4;
 var oBody, oLeg, oFoot, oAccessory, oBackground;
 
-var bodyScale = 0.5;
-var headPosX = 100;
-var headPosY = 100;
+var headScale = 0.35;
+var headPosX = 115;
+var headPosY = 0;
 
 //unknow
 var iSel = 0;
@@ -273,9 +273,12 @@ function clear() {
 
 function drawScene() {
     clear();
+    //ctx3
+    ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
+
     //ctx
     ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w, oHead.h);
-    ctx3.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w*bodyScale, oHead.h*bodyScale);
+    ctx3.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x+headPosX, oHead.y+headPosY, oHead.w*headScale, oHead.h*headScale);
 
     //ctx.drawImage(oTop.image, oTop.x2 + oTop.iSpr * oTop.w, oTop.y2, oTop.w, oTop.h, oTop.x, oTop.y, oTop.w, oTop.h);
     // if (oColorTop.iPos > 0) {
@@ -294,7 +297,7 @@ function drawScene() {
     // }
 
     ctx.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x, oEyebrow.y, oEyebrow.w, oEyebrow.h);
-    ctx3.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x, oEyebrow.y, oEyebrow.w*bodyScale, oEyebrow.h*bodyScale);
+    ctx3.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x+headPosX, oEyebrow.y+headPosY, oEyebrow.w*headScale, oEyebrow.h*headScale);
     if (oColorEyebrow.iPos > 0) {
         var iCp = oColorEyebrow.iPos;
         var zdata = ctx.getImageData(0, 110, 340, 60);
@@ -313,7 +316,7 @@ function drawScene() {
 
 
     ctx.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x, oEye.y, oEye.w, oEye.h);
-    ctx3.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x, oEye.y, oEye.w*bodyScale, oEye.h*bodyScale);
+    ctx3.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x+headPosX, oEye.y+headPosY, oEye.w*headScale, oEye.h*headScale);
 
     if (oColorEye.iPos > 0) {
         var iCp = oColorEye.iPos;
@@ -347,7 +350,7 @@ function drawScene() {
     }
     //ctx2
     ctx2.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x, oFringe.y, oFringe.w, oFringe.h);
-    ctx3.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x, oFringe.y, oFringe.w*bodyScale, oFringe.h*bodyScale);
+    ctx3.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x+headPosX, oFringe.y+headPosY, oFringe.w*headScale, oFringe.h*headScale);
 
     if (oColors.iPos > 0) {
         var iCp = oColors.iPos;
@@ -380,7 +383,7 @@ function drawScene() {
         ctx3.putImageData(zdata, 0, 0);
     }
     ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h);
-    ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w*bodyScale, oMouth.h*bodyScale);
+    ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x+headPosX, oMouth.y+headPosY, oMouth.w*headScale, oMouth.h*headScale);
 
 
 
@@ -449,15 +452,15 @@ $(function() {
     var oBodyImage = new Image();
     oBodyImage.src = website_url + 'data/' + gender + 'body.png';
     oBodyImage.onload = function(){};
-    var oLegImage = new Image();
-    oLegImage.src = website_url + 'data/' + gender + 'leg.png';
-    oLegImage.onload = function(){};
-    var oFootImage = new Image();
-    oFootImage.src = website_url + 'data/' + gender + 'foot.png';
-    oFootImage.onload = function(){};
-    var oBackgroundImage = new Image();
-    oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
-    oBackgroundImage.onload = function(){};
+    // var oLegImage = new Image();
+    // oLegImage.src = website_url + 'data/' + gender + 'leg.png';
+    // oLegImage.onload = function(){};
+    // var oFootImage = new Image();
+    // oFootImage.src = website_url + 'data/' + gender + 'foot.png';
+    // oFootImage.onload = function(){};
+    // var oBackgroundImage = new Image();
+    // oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
+    // oBackgroundImage.onload = function(){};
 
 
     //face part color object
@@ -476,10 +479,10 @@ $(function() {
     oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
 
     //body part object
-    oBody = new Body(0,0,0,0,340,340,oBodyImage);
-    oLeg = new Leg(0,0,0,0,340,340,oLeg);
-    oFoot = new Foot(0,0,0,0,340,340,oFoot);
-    oBackground = new Background(0,0,0,0,340,340,oBackground);
+    oBody = new Body(0,0,0,0,340,477,oBodyImage);
+    // oLeg = new Leg(0,0,0,0,340,340,oLeg);
+    // oFoot = new Foot(0,0,0,0,340,340,oFoot);
+    // oBackground = new Background(0,0,0,0,340,340,oBackground);
 
     //refresh the canvas
     setInterval(drawScene, 100);

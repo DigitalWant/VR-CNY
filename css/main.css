@@ -157,6 +157,9 @@ a,img,canvas { -webkit-user-select: none !important; }
   height: 340px;
   position: relative;
 }
+.scene.fullbody {
+  height: 477px;
+}
 #scene, #scene2 {
   position: absolute;
 }
