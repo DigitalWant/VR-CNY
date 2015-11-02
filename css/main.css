@@ -156,8 +156,6 @@ a,img,canvas { -webkit-user-select: none !important; }
 	width: 340px;
   height: 340px;
   position: relative;
-  margin-top: -5px;
-  margin-left: -10px;
 }
 #scene, #scene2 {
   position: absolute;

@@ -22,7 +22,7 @@ var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 //canvas body builder relate
 var canvas3, ctx3;
 var canvas4, ctx4;
-var oBody, oLeg, oFoot, oAccessory, oBackground;
+var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
 
 //unknow
 var iSel = 0;
@@ -150,6 +150,7 @@ function Colors() {
     this.aSets[23][2] = [0, 0, 0]
 }
 
+//face part model
 function Head(x, y, x2, y2, w, h, image) {
     this.x = x;
     this.y = y;
@@ -216,6 +217,7 @@ function Top(x, y, x2, y2, w, h, image) {
     this.iSpr = 0
 }
 
+//body part model
 function Body(x, y, x2, y2, w, h, image) {
   this.x = x;
   this.y = y;
@@ -226,6 +228,18 @@ function Body(x, y, x2, y2, w, h, image) {
   this.image = image;
   this.iSpr = 0
 };
+
+function Cloth(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+}
+
 function Leg(x, y, x2, y2, w, h, image) {
   this.x = x;
   this.y = y;
@@ -259,13 +273,27 @@ function Background(x, y, x2, y2, w, h, image) {
   this.iSpr = 0
 };
 
+function Accessory(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
 
+
+//reset
 function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
     ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
-  //  ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
+  //ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
 }
+
+//canvas draw
 
 function drawScene() {
     clear();
@@ -364,11 +392,11 @@ function drawScene() {
     ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h);
 
     //ctx3 background
-    //ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
+    ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
 
 
 
-    //ctx.drawImage()
+
 
 }
 
@@ -396,6 +424,8 @@ function exportResult() {
     $('#face_result').attr('src', vData);
     sendResultToServer(vData)
 }
+
+
 
 $(function() {
 
@@ -433,6 +463,9 @@ $(function() {
     var oBodyImage = new Image();
     oBodyImage.src = website_url + 'data/' + gender + 'body.png';
     oBodyImage.onload = function(){};
+    var oClothImage = new Image();
+    oClothImage.src = website_url + 'data/' + gender + 'cloth.png';
+    oClothImage.onload = function(){};
     var oLegImage = new Image();
     oLegImage.src = website_url + 'data/' + gender + 'leg.png';
     oLegImage.onload = function(){};
@@ -442,6 +475,7 @@ $(function() {
     var oBackgroundImage = new Image();
     oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
     oBackgroundImage.onload = function(){};
+
 
 
     //face part color object
@@ -461,6 +495,7 @@ $(function() {
 
     //body part object
     oBody = new Body(0,0,0,0,340,340,oBodyImage);
+    oCloth = new Cloth(0,0,0,0,340,340,oClothImage);
     oLeg = new Leg(0,0,0,0,340,340,oLeg);
     oFoot = new Foot(0,0,0,0,340,340,oFoot);
     oBackground = new Background(0,0,0,0,340,340,oBackground);
