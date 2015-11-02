@@ -7,25 +7,20 @@
  * All rights reserved.
 */
 var website_url = './';
-
-//get basic parameter from url
-var str = window.location.search;
-var patt1 = new RegExp("gender=male");
-var gender = patt1.test(str) ? 'male/': 'female/';
-
-//canvas face builder relate
+var gender = 'female/';
 var canvas, ctx;
 var canvas2, ctx2;
-var oHead, oFringe, oEyebrow, oEye, oMouth, oTop;
-var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
-
-//canvas body builder relate
 var canvas3, ctx3;
+<<<<<<< HEAD
 var canvas4, ctx4;
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
+=======
+>>>>>>> parent of 2d44935... update
 
-//unknow
+var oHead, oFringe, oEyebrow, oEye, oMouth, oTop;
+var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 var iSel = 0;
+
 
 
 function sendResultToServer(vData) {
@@ -52,6 +47,8 @@ function sendResultToServer(vData) {
         }
     );
 }
+
+
 
 function Colors() {
     this.iPos = 0;
@@ -217,6 +214,7 @@ function Top(x, y, x2, y2, w, h, image) {
     this.iSpr = 0
 }
 
+<<<<<<< HEAD
 //body part model
 function Body(x, y, x2, y2, w, h, image) {
   this.x = x;
@@ -291,13 +289,17 @@ function clear() {
     ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
     ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
   //ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
+=======
+function clear() {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height)
+>>>>>>> parent of 2d44935... update
 }
 
 //canvas draw
 
 function drawScene() {
     clear();
-    //ctx
     ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w, oHead.h);
     ctx.drawImage(oTop.image, oTop.x2 + oTop.iSpr * oTop.w, oTop.y2, oTop.w, oTop.h, oTop.x, oTop.y, oTop.w, oTop.h);
     if (oColorTop.iPos > 0) {
@@ -358,7 +360,6 @@ function drawScene() {
         }
         ctx.putImageData(zdata, 2, 2)
     }
-    //ctx2
     ctx2.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x, oFringe.y, oFringe.w, oFringe.h);
     if (oColors.iPos > 0) {
         var iCp = oColors.iPos;
@@ -389,6 +390,7 @@ function drawScene() {
         }
         ctx2.putImageData(zdata, 0, 0)
     }
+<<<<<<< HEAD
     ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h);
 
     //ctx3 background
@@ -398,6 +400,9 @@ function drawScene() {
 
 
 
+=======
+    ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h)
+>>>>>>> parent of 2d44935... update
 }
 
 function exportResult() {
@@ -436,8 +441,6 @@ $(function() {
     ctx = canvas.getContext('2d');
     canvas2 = document.getElementById('scene2');
     ctx2 = canvas2.getContext('2d');
-    canvas3 = document.getElementById('scene3');
-    ctx3 = canvas3.getContext('2d');
 
     //face Part
     var oEyesImage = new Image();
@@ -459,6 +462,7 @@ $(function() {
     oTopsImage.src = website_url + 'data/'+gender+'tops.png';
     oTopsImage.onload = function() {};
 
+<<<<<<< HEAD
     //body Part
     var oBodyImage = new Image();
     oBodyImage.src = website_url + 'data/' + gender + 'body.png';
@@ -479,13 +483,14 @@ $(function() {
 
 
     //face part color object
+=======
+>>>>>>> parent of 2d44935... update
     oColors = new Colors();
     oColorEyebrow = new Colors();
     oColorEye = new Colors();
     oColorTop = new Colors();
     oColorBack = new Colors();
 
-    //face part object
     oHead = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
     oFringe = new Fringe(0, 0, 0, 0, 340, 340, oFringeImage);
     oEye = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
@@ -493,6 +498,7 @@ $(function() {
     oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
     oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
 
+<<<<<<< HEAD
     //body part object
     oBody = new Body(0,0,0,0,340,340,oBodyImage);
     oCloth = new Cloth(0,0,0,0,340,340,oClothImage);
@@ -500,6 +506,8 @@ $(function() {
     oFoot = new Foot(0,0,0,0,340,340,oFoot);
     oBackground = new Background(0,0,0,0,340,340,oBackground);
 
+=======
+>>>>>>> parent of 2d44935... update
     //refresh the canvas
     setInterval(drawScene, 100);
 

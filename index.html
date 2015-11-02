@@ -6,7 +6,6 @@
   <title>HTML5 Face Builder2</title>
   <link href="./css/main.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="./js/scriptMeta.js"></script>
-
 </head>
 
 <body>
@@ -31,17 +30,6 @@
       <div id="generate">
         <button class="button">Generate Image</button>
       </div>
-      <div class="scene">
-        <canvas id="scene3" height="340" width="340" ></canvas>
-        <div class="loading">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-
     </div>
     <!-- end of main -->
 
@@ -52,6 +40,7 @@
 
       <!-- main type buttons -->
       <div id="ba_tabs" class="ba_tabs">
+        <a href="#gender" class="button">Gender</a>
         <a href="#fringes" class="button">Fringe</a>
         <a href="#eyebrows" class="button">Eyebrows</a>
         <a href="#eyes" class="button">Eyes</a>
@@ -74,6 +63,15 @@
         <span id="back"></span>
 
         <!-- internal panels list is here -->
+        <div id="gender">
+          <div class="type">
+            <h2>Gender</h2>
+            <div class="set">
+              <div val="female/">Female</div>
+              <div val="male/">Male</div>
+            </div>
+          </div>
+        </div>
         <div id="fringe">
           <div class="type">
             <h2>Fringe</h2>
@@ -354,9 +352,6 @@
     </div>
     <!-- end of aside -->
   </div>
-
-
-
   <!-- end of primary container -->
   <div class="result"></div>
 
