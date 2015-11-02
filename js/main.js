@@ -21,12 +21,12 @@ var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 
 //canvas body builder relate
 var canvas3, ctx3;
-var canvas4, ctx4;
-var oBody, oLeg, oFoot, oAccessory, oBackground;
 
-var headScale = 0.35;
-var headPosX = 115;
-var headPosY = 0;
+var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
+
+var headScale = 0.30;
+var headPosX = 125;
+var headPosY = 10;
 
 //unknow
 var iSel = 0;
@@ -133,6 +133,18 @@ function Body(x, y, x2, y2, w, h, image) {
   this.image = image;
   this.iSpr = 0
 };
+
+function Cloth(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0
+};
+
 function Leg(x, y, x2, y2, w, h, image) {
   this.x = x;
   this.y = y;
@@ -177,7 +189,10 @@ function clear() {
 function drawScene() {
     clear();
     //ctx3
+    ctx3.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
     ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
+    ctx3.drawImage(oFoot.image, oFoot.x2 + oFoot.iSpr * oFoot.w, oFoot.y2, oFoot.w, oFoot.h, oFoot.x, oFoot.y, oFoot.w, oFoot.h);
+    ctx3.drawImage(oCloth.image, oCloth.x2 + oCloth.iSpr * oCloth.w, oCloth.y2, oCloth.w, oCloth.h, oCloth.x, oCloth.y, oCloth.w, oCloth.h);
 
     //ctx
     ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w, oHead.h);
@@ -212,10 +227,10 @@ function exportResult() {
     temp_ctx = temp_canvas.getContext('2d');
     temp_canvas.width = 330;
     temp_canvas.height = 330;
-    var zdata = ctx.getImageData(5, 5, 330, 330);
+    var zdata = ctx3.getImageData(5, 5, 330, 477);
     var data = zdata.data;
     temp_ctx.putImageData(zdata, 0, 0);
-    zdata2 = ctx2.getImageData(5, 5, 330, 330);
+    zdata2 = ctx3.getImageData(5, 5, 330, 477);
 
 
     temp_ctx.putImageData(zdata2, 0, 0);
@@ -260,15 +275,18 @@ $(function() {
     var oBodyImage = new Image();
     oBodyImage.src = website_url + 'data/' + gender + 'body.png';
     oBodyImage.onload = function(){};
+    var oClothImage = new Image();
+    oClothImage.src = website_url + 'data/' + gender + 'cloth.png';
+    oClothImage.onload = function(){};
     // var oLegImage = new Image();
     // oLegImage.src = website_url + 'data/' + gender + 'leg.png';
     // oLegImage.onload = function(){};
-    // var oFootImage = new Image();
-    // oFootImage.src = website_url + 'data/' + gender + 'foot.png';
-    // oFootImage.onload = function(){};
-    // var oBackgroundImage = new Image();
-    // oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
-    // oBackgroundImage.onload = function(){};
+    var oFootImage = new Image();
+    oFootImage.src = website_url + 'data/' + gender + 'foot.png';
+    oFootImage.onload = function(){};
+    var oBackgroundImage = new Image();
+    oBackgroundImage.src = website_url + 'data/' + gender + 'background.png';
+    oBackgroundImage.onload = function(){};
 
 
 
@@ -282,9 +300,10 @@ $(function() {
 
     //body part object
     oBody = new Body(0,0,0,0,340,477,oBodyImage);
+    oCloth = new Cloth(0,0,0,0,340,477,oClothImage);
     // oLeg = new Leg(0,0,0,0,340,340,oLeg);
-    // oFoot = new Foot(0,0,0,0,340,340,oFoot);
-    // oBackground = new Background(0,0,0,0,340,340,oBackground);
+    oFoot = new Foot(0,0,0,0,340,477,oFootImage);
+    oBackground = new Background(0,0,0,0,340,340,oBackgroundImage);
 
     //refresh the canvas
     setInterval(drawScene, 100);
@@ -308,21 +327,21 @@ $(function() {
     $('#skin .color .set div').click(function() {
         oHead.iSpr = parseInt($(this).attr('val'))
     });
-    $('#fringe .color .set div').click(function() {
-        oColors.iPos = parseInt($(this).attr('val'))
+
+
+    //cloth foot accesory bag background
+    $('#cloth .type .set div').click(function() {
+        oCloth.iSpr = parseInt($(this).attr('val'))
     });
-    $('#eyebrow .color .set div').click(function() {
-        oColorEyebrow.iPos = parseInt($(this).attr('val'))
+    $('#foot .type .set div').click(function() {
+        oFoot.iSpr = parseInt($(this).attr('val'))
     });
-    $('#top .color .set div').click(function() {
-        oColorTop.iPos = parseInt($(this).attr('val'))
+
+    $('#background .type .set div').click(function() {
+        oBackground.iSpr = parseInt($(this).attr('val'))
     });
-    $('#eye .color .set div').click(function() {
-        oColorEye.iPos = parseInt($(this).attr('val'))
-    });
-    $('#back .color .set div').click(function() {
-        oColorBack.iPos = parseInt($(this).attr('val'))
-    });
+
+
     $('#generate button').click(function() {
         exportResult()
     })

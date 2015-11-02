@@ -160,7 +160,8 @@ a,img,canvas { -webkit-user-select: none !important; }
 .scene.fullbody {
   height: 477px;
 }
-#scene, #scene2 {
+#scene,
+#scene2 {
   position: absolute;
 }
 #generate {
@@ -181,7 +182,16 @@ a,img,canvas { -webkit-user-select: none !important; }
   height: 0;
   overflow: hidden;
 }
-#fringes:target ~ #fringe, #eyebrows:target ~ #eyebrow, #eyes:target ~ #eye, #mouths:target ~ #mouth, #tops:target ~ #top, #skins:target ~ #skin, #back:target ~ #back {
+#fringes:target ~ #fringe,
+#eyebrows:target ~ #eyebrow,
+#eyes:target ~ #eye,
+#mouths:target ~ #mouth,
+#tops:target ~ #top,
+#skins:target ~ #skin,
+#back:target ~ #back,
+#cloth:target ~ #cloth,
+#foot:target ~ #foot,
+#background:target ~ #background   {
   height: auto;
 }
 .set {
