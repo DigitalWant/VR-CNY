@@ -13,8 +13,11 @@ var canvas2, ctx2;
 var canvas3, ctx3;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var canvas4, ctx4;
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
+=======
+>>>>>>> parent of 2d44935... update
 =======
 >>>>>>> parent of 2d44935... update
 =======
@@ -219,6 +222,7 @@ function Top(x, y, x2, y2, w, h, image) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //body part model
 function Body(x, y, x2, y2, w, h, image) {
   this.x = x;
@@ -293,6 +297,11 @@ function clear() {
     ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
     ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
   //ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
+=======
+function clear() {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height)
+>>>>>>> parent of 2d44935... update
 =======
 function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -401,6 +410,7 @@ function drawScene() {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h);
 
     //ctx3 background
@@ -410,6 +420,9 @@ function drawScene() {
 
 
 
+=======
+    ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h)
+>>>>>>> parent of 2d44935... update
 =======
     ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x, oMouth.y, oMouth.w, oMouth.h)
 >>>>>>> parent of 2d44935... update
@@ -477,6 +490,7 @@ $(function() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     //body Part
     var oBodyImage = new Image();
     oBodyImage.src = website_url + 'data/' + gender + 'body.png';
@@ -501,6 +515,8 @@ $(function() {
 >>>>>>> parent of 2d44935... update
 =======
 >>>>>>> parent of 2d44935... update
+=======
+>>>>>>> parent of 2d44935... update
     oColors = new Colors();
     oColorEyebrow = new Colors();
     oColorEye = new Colors();
@@ -516,6 +532,7 @@ $(function() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     //body part object
     oBody = new Body(0,0,0,0,340,340,oBodyImage);
     oCloth = new Cloth(0,0,0,0,340,340,oClothImage);
@@ -523,6 +540,8 @@ $(function() {
     oFoot = new Foot(0,0,0,0,340,340,oFoot);
     oBackground = new Background(0,0,0,0,340,340,oBackground);
 
+=======
+>>>>>>> parent of 2d44935... update
 =======
 >>>>>>> parent of 2d44935... update
 =======
