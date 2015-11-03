@@ -151,13 +151,19 @@ a,img,canvas { -webkit-user-select: none !important; }
   width: 100%;
 }
 .aside {
+  position: fixed;
+  left:0px;
+  bottom:0px;
 }
 .scene {
 	width: 340px;
   height: 340px;
   position: relative;
 }
-.scene.fullbody {
+.scene.faceBuild {
+  height: 477px;
+}
+.scene.bodyBuild {
   height: 477px;
 }
 #scene,
@@ -225,9 +231,8 @@ a,img,canvas { -webkit-user-select: none !important; }
   text-align: center;
   text-decoration: none;
   text-shadow: 0 1px 0 #FFF;
-  width: 150px;
-  margin: 5px;
-  padding: 8px 0 9px;
+  margin: 3px;
+  padding: 3px;
 }
 .text {
   border: 1px solid #BBB;
@@ -369,4 +374,14 @@ a,img,canvas { -webkit-user-select: none !important; }
     transform: scale(0.7);
     opacity: 0.1;
   }
+}
+.faceSwiper {
+  position: fixed;
+  width:100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  left:0px;
+  top:0px;
+  z-index: 9999;
+  
 }

@@ -4,6 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>HTML5 Face Builder2</title>
+  <link href="./css/swiper.min.css" rel="stylesheet" type="text/css" />
   <link href="./css/main.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="./js/scriptMeta.js"></script>
 
@@ -17,7 +18,7 @@
 
     <!-- main -->
     <div class="main">
-      <div class="scene">
+      <div class="scene faceBuild">
         <canvas id="scene" width="340" height="340"></canvas>
         <canvas id="scene2" width="340" height="340"></canvas>
         <div class="loading">
@@ -28,7 +29,7 @@
           <div></div>
         </div>
       </div>
-      <div class="scene fullbody">
+      <div class="scene bodyBuild">
         <canvas id="scene3" height="477" width="340" ></canvas>
         <div class="loading">
           <div></div>
@@ -45,12 +46,17 @@
 
     </div>
     <!-- end of main -->
+    <div class="faceSwiper swiper-container">
+      <div class="swiper-wrapper">
+        <div class="screen swiper-slide">Fringe</div>
+        <div class="screen swiper-slide">Eyebrows</div>
+        <div class="screen swiper-slide">Eyes</div>
+        <div class="screen swiper-slide">Mouth</div>
+      </div>
 
+    </div>
     <!-- aside -->
     <div class="aside">
-
-
-
       <!-- main type buttons -->
       <div id="ba_tabs" class="ba_tabs">
         <a href="#fringes" class="button">Fringe</a>
@@ -64,6 +70,7 @@
         <a href="#foot" class="button">Foot</a>
       </div>
       <!-- end of main type buttons -->
+
       <!-- sliding panels -->
       <div id="ba_pabs" class="ba_pabs">
         <span id="home"></span>
