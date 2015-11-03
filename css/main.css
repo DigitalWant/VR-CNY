@@ -186,7 +186,6 @@ a,img,canvas { -webkit-user-select: none !important; }
 #eyebrows:target ~ #eyebrow,
 #eyes:target ~ #eye,
 #mouths:target ~ #mouth,
-#tops:target ~ #top,
 #skins:target ~ #skin,
 #back:target ~ #back,
 #cloth:target ~ #cloth,
