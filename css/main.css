@@ -198,7 +198,7 @@ a,img,canvas { -webkit-user-select: none !important; }
 #cloth:target ~ #cloth,
 #foot:target ~ #foot,
 #background:target ~ #background   {
-  height: auto;
+/*  height: auto;*/
 }
 .set {
   overflow: hidden;
@@ -234,6 +234,17 @@ a,img,canvas { -webkit-user-select: none !important; }
   text-shadow: 0 1px 0 #FFF;
   margin: 3px;
   padding: 3px;
+  position: relative;
+}
+.button.active:before{
+  content:" ";
+  display: block;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left:0px;
+  top:-10px;
+  background-color: rgba(255, 0, 0, 0.5);
 }
 .text {
   border: 1px solid #BBB;

@@ -303,19 +303,35 @@ $(function() {
         console.log('test');
       }
     });
-    faceSwiper.lockSwipes();
+    $('.aside a').on('click',function(e){
+      e.preventDefault();
+      $(this).addClass('active').siblings().removeClass('active');
+      faceSwiper.slideTo($(this).attr('val'));
+    });
 
     //face type swiper
     var fringeSwiperType = new Swiper('.fringeSwiperType',{
       onSlideChangeStart:function(swiper){
         oFringe.iSpr = parseInt(swiper.activeIndex);
       }
+    });
+    var eyebrowSwiperType = new Swiper('.eyebrowSwiperType',{
+      onSlideChangeStart:function(swiper){
+        oEyebrow.iSpr = parseInt(swiper.activeIndex);
+      }
+    });
+    var eyeSwiperType = new Swiper('.eyeSwiperType',{
+      onSlideChangeStart:function(swiper){
+        oEye.iSpr = parseInt(swiper.activeIndex);
+      }
+    });
+    var mouthSwiperType = new Swiper('.mouthSwiperType',{
+      onSlideChangeStart:function(swiper){
+        oMouth.iSpr = parseInt(swiper.activeIndex);
+      }
     })
 
-    $('.aside a').on('click',function(e){
-      e.preventDefault();
-      faceSwiper.slideTo(0, 1000, false);
-    })
+
 
     //iSpr : index SpreadSheet
     $('#eye .type .set div').click(function() {
