@@ -18,6 +18,12 @@
 
     <!-- main -->
     <div class="main">
+      <div class="scene genderBuild">
+        <div class="genderBox">
+          <div class="item" val='female/'>Female</div>
+          <div class="item" val='male/'>Male</div>
+        </div>
+      </div>
       <div class="scene faceBuild">
         <canvas id="scene" width="340" height="340"></canvas>
         <canvas id="scene2" width="340" height="340"></canvas>
@@ -30,7 +36,7 @@
         </div>
       </div>
       <div class="scene bodyBuild">
-        <canvas id="scene3" height="477" width="340" ></canvas>
+        <canvas id="scene3" height="477" width="340"></canvas>
         <div class="loading">
           <div></div>
           <div></div>
@@ -39,14 +45,9 @@
           <div></div>
         </div>
       </div>
-      <div id="generate">
-        <button class="button">Generate Image</button>
-      </div>
-
-
     </div>
     <!-- end of main -->
-    <div class="faceSwiper swiper-container">
+    <div class="elementSwiper swiper-container">
       <div class="swiper-wrapper">
         <div class="screen swiper-slide">
           <div class="fringeSwiperType swiper-container">
@@ -132,25 +133,69 @@
             </div>
           </div>
         </div>
+        <div class="screen swiper-slide">
+          <div class="backgroundSwiperType swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" val="0">1</div>
+              <div class="swiper-slide" val="1">2</div>
+              <div class="swiper-slide" val="2">3</div>
+              <div class="swiper-slide" val="3">4</div>
+              <div class="swiper-slide" val="4">5</div>
+              <div class="swiper-slide" val="5">6</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen swiper-slide">
+          <div class="clothSwiperType swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" val="0">1</div>
+              <div class="swiper-slide" val="1">2</div>
+              <div class="swiper-slide" val="2">3</div>
+              <div class="swiper-slide" val="3">4</div>
+              <div class="swiper-slide" val="4">5</div>
+              <div class="swiper-slide" val="5">6</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen swiper-slide">
+          <div class="footSwiperType swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" val="0">1</div>
+              <div class="swiper-slide" val="1">2</div>
+              <div class="swiper-slide" val="2">3</div>
+              <div class="swiper-slide" val="3">4</div>
+              <div class="swiper-slide" val="4">5</div>
+              <div class="swiper-slide" val="5">6</div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
     <!-- aside -->
     <div class="aside">
+
       <!-- main type buttons -->
       <div id="ba_tabs" class="ba_tabs">
-        <a href="#fringes" val='0' class="button active">Fringe</a>
-        <a href="#eyebrows" val='1' class="button">Eyebrows</a>
-        <a href="#eyes" val='2' class="button">Eyes</a>
-        <a href="#mouths"  val='3' class="button">Mouth</a>
+        <a href="#fringes" val='0' class="button active faceItem">Fringe</a>
+        <a href="#eyebrows" val='1' class="button faceItem">Eyebrows</a>
+        <a href="#eyes" val='2' class="button faceItem">Eyes</a>
+        <a href="#mouths" val='3' class="button faceItem">Mouth</a>
         <!-- <a href="#tops" class="button">Top</a> -->
         <!-- <a href="#skins" class="button">Skin</a> -->
-        <a href="#background" class="button">Background</a>
-        <a href="#cloth" class="button">Cloth</a>
-        <a href="#foot" class="button">Foot</a>
+        <a href="#background" val='4' class="button bodyItem">Background</a>
+        <a href="#cloth" val='5' class="button bodyItem">Cloth</a>
+        <a href="#foot" val='6' class="button bodyItem">Foot</a>
       </div>
       <!-- end of main type buttons -->
+      <div class="userAction">
+        <div class="btn prevStep">返回</div>
+        <div class="btn nextStep">继续</div>
+      </div>
 
+      <div id="generate">
+        <button class="button">Generate Image</button>
+      </div>
       <!-- sliding panels -->
       <div id="ba_pabs" class="ba_pabs">
         <span id="home"></span>
