@@ -232,12 +232,6 @@ function exportResult() {
 
 $(function() {
 
-    //swiper
-    var swiper = new Swiper('.swiper-container', {
-      onSlideChangeStart: function(swiper) {
-        alert('事件触发了;');
-      }
-    });
 
     //canvas
     canvas = document.getElementById('scene');
@@ -303,6 +297,25 @@ $(function() {
 
     //refresh the canvas
     setInterval(drawScene, 100);
+    //swiper
+    var faceSwiper = new Swiper('.faceSwiper', {
+      onSlideChangeStart: function(swiper) {
+        console.log('test');
+      }
+    });
+    faceSwiper.lockSwipes();
+
+    //face type swiper
+    var fringeSwiperType = new Swiper('.fringeSwiperType',{
+      onSlideChangeStart:function(swiper){
+        oFringe.iSpr = parseInt(swiper.activeIndex);
+      }
+    })
+
+    $('.aside a').on('click',function(e){
+      e.preventDefault();
+      faceSwiper.slideTo(0, 1000, false);
+    })
 
     //iSpr : index SpreadSheet
     $('#eye .type .set div').click(function() {
