@@ -34,7 +34,8 @@ var app = {
   swiperLayer: $('.elementSwiper'),
   userControl: $('.userAction'),
   typeItemBar: $('#ba_tabs'),
-  faceTypeItem : this.typeItemBar.find('.faceItem')
+  faceItem : $('.faceItem'),
+  bodyItem : $('.bodyItem'),
   stepProgram: [{
     container: $('.genderBuild'),
     stepFunction: function() {
@@ -42,7 +43,9 @@ var app = {
       app.userControl.hide();
       var thisContainer = this.container;
       thisContainer.show().siblings().hide();
+      var that = this;
 
+      console.log(that);
       //reset timer
       clearInterval(timer);
 
