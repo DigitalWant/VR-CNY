@@ -314,9 +314,7 @@ function assetsPrepare(gender) {
   var oFringeImage = new Image();
   oFringeImage.src = website_url + 'data/' + gender + 'fringes.png';
   oFringeImage.onload = function() {};
-  var oTopsImage = new Image();
-  oTopsImage.src = website_url + 'data/' + gender + 'tops.png';
-  oTopsImage.onload = function() {};
+
 
   //body Part
   var oBodyImage = new Image();
@@ -325,9 +323,6 @@ function assetsPrepare(gender) {
   var oClothImage = new Image();
   oClothImage.src = website_url + 'data/' + gender + 'cloth.png';
   oClothImage.onload = function() {};
-  // var oLegImage = new Image();
-  // oLegImage.src = website_url + 'data/' + gender + 'leg.png';
-  // oLegImage.onload = function(){};
   var oFootImage = new Image();
   oFootImage.src = website_url + 'data/' + gender + 'foot.png';
   oFootImage.onload = function() {};
@@ -341,7 +336,6 @@ function assetsPrepare(gender) {
   oEye = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
   oEyebrow = new Eyebrow(0, 0, 0, 0, 340, 340, oEyebrowImage);
   oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
-  oTop = new Top(0, 0, 0, 0, 340, 340, oTopsImage);
 
   //body part object
   oBody = new Body(0, 0, 0, 0, 340, 477, oBodyImage);
@@ -397,6 +391,12 @@ $(function() {
       oMouth.iSpr = parseInt(swiper.activeIndex);
     }
   });
+  var skinSwiperType = new Swiper('.headSwiperType',{
+    onSlideChangeStart:function(swiper){
+      oHead.iSpr = parseInt(swiper.activeIndex);
+    }
+  });
+
   var backgroundSwiperType = new Swiper('.backgroundSwiperType', {
     onSlideChangeStart: function(swiper) {
       oBackground.iSpr = parseInt(swiper.activeIndex);
@@ -411,15 +411,6 @@ $(function() {
     onSlideChangeStart: function(swiper) {
       oFoot.iSpr = parseInt(swiper.activeIndex);
     }
-  });
-
-  //iSpr : index SpreadSheet
-  $('#top .type .set div').click(function() {
-    oTop.iSpr = parseInt($(this).attr('val'))
-  });
-
-  $('#skin .color .set div').click(function() {
-    oHead.iSpr = parseInt($(this).attr('val'))
   });
 
   //cloth foot accesory bag background
