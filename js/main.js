@@ -32,20 +32,26 @@ var iSel = 0;
 var app = {
   step: 0,
   swiperLayer: $('.elementSwiper'),
-  userControl: $('.userAction'),
+  userAction: $('.userAction'),
   typeItemBar: $('#ba_tabs'),
   faceItem : $('.faceItem'),
   bodyItem : $('.bodyItem'),
+  generate:$('#generate'),
   stepProgram: [{
     container: $('.genderBuild'),
     stepFunction: function() {
       app.swiperLayer.hide();
-      app.userControl.hide();
-      var thisContainer = this.container;
-      thisContainer.show().siblings().hide();
-      var that = this;
+      app.userAction.hide();
 
-      console.log(that);
+      this.container.show().siblings().hide();
+
+      //Btn control
+      app.faceItem.hide();
+      app.bodyItem.hide();
+      app.generate.hide();
+      app.userAction.hide();
+
+
       //reset timer
       clearInterval(timer);
 
@@ -54,15 +60,29 @@ var app = {
     container: $('.faceBuild'),
     stepFunction: function() {
       app.swiperLayer.show();
-      var thisContainer = this.container;
-      thisContainer.show().siblings().hide();
+
+      this.container.show().siblings().hide();
+
+      //Btn control
+      app.faceItem.show();
+      app.bodyItem.hide();
+      app.generate.hide();
+      app.userAction.show();
+
     }
   }, {
     container: $('.bodyBuild'),
     stepFunction: function() {
       app.swiperLayer.show();
-      var thisContainer = this.container;
-      thisContainer.show().siblings().hide();
+
+      this.container.show().siblings().hide();
+
+      //Btn control
+      app.faceItem.hide();
+      app.bodyItem.show();
+      app.generate.hide();
+      app.userAction.show();
+
     }
   }]
 }
