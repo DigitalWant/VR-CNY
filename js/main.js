@@ -64,7 +64,7 @@ var app = {
       this.container.show().siblings().hide();
 
       //Btn control
-      app.faceItem.show();
+      app.faceItem.show().eq(0).trigger('click');
       app.bodyItem.hide();
       app.generate.hide();
       app.userAction.show();
@@ -79,7 +79,7 @@ var app = {
 
       //Btn control
       app.faceItem.hide();
-      app.bodyItem.show();
+      app.bodyItem.show().eq(0).trigger('click');
       app.generate.hide();
       app.userAction.show();
 
@@ -417,6 +417,7 @@ $(function() {
   $('#top .type .set div').click(function() {
     oTop.iSpr = parseInt($(this).attr('val'))
   });
+
   $('#skin .color .set div').click(function() {
     oHead.iSpr = parseInt($(this).attr('val'))
   });
@@ -428,13 +429,13 @@ $(function() {
       app['stepProgram'][app.step]['stepFunction']();
     }
   });
+
   $('.prevStep').on('click', function() {
     if (app.step > 0) {
       app.step = app.step - 1;
       app['stepProgram'][app.step]['stepFunction']();
     }
   });
-
 
   //gender select
   $('.genderBox .item').on('click', function() {
@@ -443,12 +444,10 @@ $(function() {
     app['stepProgram'][app.step]['stepFunction']();
     assetsPrepare(gender);
 
-  })
-
+  });
   $('#generate button').click(function() {
     exportResult();
-  })
-
+  });
 
   //init the first step
   app['stepProgram'][app.step]['stepFunction']();
