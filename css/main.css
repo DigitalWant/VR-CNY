@@ -467,3 +467,11 @@ border-spacing: 10px;
   border-radius: 50%;
   color:#fff;
 }
+#msg {
+  position: absolute;
+  left:30px;
+  top:50%;
+  width:280px;
+  height:90px;
+  background: rgba(255,255,255,0.7);
+}

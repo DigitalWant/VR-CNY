@@ -19,6 +19,7 @@ var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 
 //canvas body builder relate
 var canvas3, ctx3;
+var canvas4, ctx4;
 
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
 
@@ -34,10 +35,11 @@ var app = {
   swiperLayer: $('.elementSwiper'),
   userAction: $('.userAction'),
   typeItemBar: $('#ba_tabs'),
-  faceItem : $('.faceItem'),
-  bodyItem : $('.bodyItem'),
-  generate:$('#generate'),
+  faceItem: $('.faceItem'),
+  bodyItem: $('.bodyItem'),
+  generate: $('#generate'),
   stepProgram: [{
+    //step 1. choose gender
     container: $('.genderBuild'),
     stepFunction: function() {
       app.swiperLayer.hide();
@@ -57,6 +59,7 @@ var app = {
 
     }
   }, {
+    //step 2 build face
     container: $('.faceBuild'),
     stepFunction: function() {
       app.swiperLayer.show();
@@ -71,6 +74,7 @@ var app = {
 
     }
   }, {
+    //step 3 build body item
     container: $('.bodyBuild'),
     stepFunction: function() {
       app.swiperLayer.show();
@@ -82,6 +86,23 @@ var app = {
       app.bodyItem.show().eq(0).trigger('click');
       app.generate.hide();
       app.userAction.show();
+
+    }
+  }, {
+    //step4. put message on final result
+    container:$('.msgBuild'),
+    stepFunction:function(){
+      app.swiperLayer.hide();
+
+      this.container.show().siblings().hide();
+
+      //Btn control
+      app.faceItem.hide();
+      app.bodyItem.hide();
+      app.generate.show();
+      app.userAction.show();
+
+      
 
     }
   }]
@@ -237,7 +258,7 @@ function clear() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
   ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
-  //  ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
+  ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
 }
 
 function drawScene() {
@@ -264,6 +285,10 @@ function drawScene() {
   ctx3.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x + headPosX, oEye.y + headPosY, oEye.w * headScale, oEye.h * headScale);
   ctx3.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x + headPosX, oFringe.y + headPosY, oFringe.w * headScale, oFringe.h * headScale);
   ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX, oMouth.y + headPosY, oMouth.w * headScale, oMouth.h * headScale);
+
+  // ctx4 clone from ctx3
+  ctx4.drawImage(canvas3,0,0);
+
 }
 
 function exportResult() {
@@ -297,7 +322,8 @@ function assetsPrepare(gender) {
   ctx2 = canvas2.getContext('2d');
   canvas3 = document.getElementById('scene3');
   ctx3 = canvas3.getContext('2d');
-
+  canvas4 = document.getElementById('scene4');
+  ctx4 = canvas4.getContext('2d');
 
   var oEyesImage = new Image();
   oEyesImage.src = website_url + 'data/' + gender + 'eyes.png';
@@ -353,7 +379,7 @@ $(function() {
 
 
   //face Part
-//  assetsPrepare(gender);
+  //  assetsPrepare(gender);
 
 
 
@@ -371,8 +397,8 @@ $(function() {
   });
 
   //face type swiper
-  var skinSwiperType = new Swiper('.headSwiperType',{
-    onSlideChangeStart:function(swiper){
+  var skinSwiperType = new Swiper('.headSwiperType', {
+    onSlideChangeStart: function(swiper) {
       oHead.iSpr = parseInt(swiper.activeIndex);
     }
   });
