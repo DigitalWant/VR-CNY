@@ -21,12 +21,26 @@ var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 var canvas3, ctx3;
 var canvas4, ctx4;
 
+
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
 
 var headScale = 0.30;
 var headPosX = 125;
 var headPosY = 10;
 var timer;
+var userMsg = {
+  context:'',
+  text:$('#msg').val(),
+  maxWidth: 100,
+  lineHeight: 25,
+  x: 0,
+  y: 50,
+  font: '25pt Calibri',
+  fillStyle: '#333'
+};
+
+
+
 
 //unknow
 var iSel = 0;
@@ -90,8 +104,8 @@ var app = {
     }
   }, {
     //step4. put message on final result
-    container:$('.msgBuild'),
-    stepFunction:function(){
+    container: $('.msgBuild'),
+    stepFunction: function() {
       app.swiperLayer.hide();
 
       this.container.show().siblings().hide();
@@ -102,7 +116,7 @@ var app = {
       app.generate.show();
       app.userAction.show();
 
-      
+
 
     }
   }]
@@ -263,7 +277,7 @@ function clear() {
 
 function drawScene() {
   clear();
-  console.log('instance');
+  //console.log('instance');
   //ctx bg>head>eyebrow>eye>fringe>mouth
   ctx.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
   ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x, oHead.y, oHead.w, oHead.h);
@@ -287,7 +301,15 @@ function drawScene() {
   ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX, oMouth.y + headPosY, oMouth.w * headScale, oMouth.h * headScale);
 
   // ctx4 clone from ctx3
-  ctx4.drawImage(canvas3,0,0);
+  ctx4.drawImage(canvas3, 0, 0);
+
+  // ctx 5
+  userMsg.text = $('#msg').val();
+  userMsg.context = ctx4;
+  ctx4.font = userMsg.font;
+  ctx4.fillStyle = userMsg.fillStyle;
+  wrapText(userMsg.context, userMsg.text, userMsg.x, userMsg.y, userMsg.maxWidth, userMsg.lineHeight);
+
 
 }
 
@@ -297,16 +319,36 @@ function exportResult() {
   temp_ctx = temp_canvas.getContext('2d');
   temp_canvas.width = 330;
   temp_canvas.height = 330;
-  var zdata = ctx3.getImageData(5, 5, 330, 477);
+  var zdata = ctx4.getImageData(5, 5, 330, 477);
   var data = zdata.data;
   temp_ctx.putImageData(zdata, 0, 0);
-  zdata2 = ctx3.getImageData(5, 5, 330, 477);
+  zdata2 = ctx4.getImageData(5, 5, 330, 477);
 
 
   temp_ctx.putImageData(zdata2, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
   $('#face_result').attr('src', vData);
-  sendResultToServer(vData)
+  sendResultToServer(vData);
+}
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+  var words = text.split('');
+  var line = '';
+
+  for (var n = 0; n < words.length; n++) {
+    var testLine = line + words[n] + '';
+    var metrics = context.measureText(testLine);
+
+    var testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      context.fillText(line, x, y);
+      line = words[n] + '';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  context.fillText(line, x, y);
 }
 
 function assetsPrepare(gender) {
@@ -324,6 +366,7 @@ function assetsPrepare(gender) {
   ctx3 = canvas3.getContext('2d');
   canvas4 = document.getElementById('scene4');
   ctx4 = canvas4.getContext('2d');
+
 
   var oEyesImage = new Image();
   oEyesImage.src = website_url + 'data/' + gender + 'eyes.png';
@@ -369,6 +412,9 @@ function assetsPrepare(gender) {
   // oLeg = new Leg(0,0,0,0,340,340,oLeg);
   oFoot = new Foot(0, 0, 0, 0, 340, 477, oFootImage);
   oBackground = new Background(0, 0, 0, 0, 340, 340, oBackgroundImage);
+
+
+
   //refresh the canvas
   timer = setInterval(drawScene, 100);
 }

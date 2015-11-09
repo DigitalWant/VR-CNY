@@ -208,7 +208,7 @@ html, body {
   display: none;
 }
 
-#scene, #scene2 {
+#scene, #scene2,#scene4,#scene5 {
   position: absolute;
 }
 #generate {
