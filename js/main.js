@@ -360,7 +360,7 @@ $(function() {
   //swiper
   var elementSwiper = new Swiper('.elementSwiper', {
     onSlideChangeStart: function(swiper) {
-      console.log('test');
+      console.log(swiper.activeIndex);
     }
   });
 
@@ -371,6 +371,13 @@ $(function() {
   });
 
   //face type swiper
+  var skinSwiperType = new Swiper('.headSwiperType',{
+    onSlideChangeStart:function(swiper){
+      oHead.iSpr = parseInt(swiper.activeIndex);
+    }
+  });
+
+
   var fringeSwiperType = new Swiper('.fringeSwiperType', {
     onSlideChangeStart: function(swiper) {
       oFringe.iSpr = parseInt(swiper.activeIndex);
@@ -391,11 +398,7 @@ $(function() {
       oMouth.iSpr = parseInt(swiper.activeIndex);
     }
   });
-  var skinSwiperType = new Swiper('.headSwiperType',{
-    onSlideChangeStart:function(swiper){
-      oHead.iSpr = parseInt(swiper.activeIndex);
-    }
-  });
+
 
   var backgroundSwiperType = new Swiper('.backgroundSwiperType', {
     onSlideChangeStart: function(swiper) {
