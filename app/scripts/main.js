@@ -126,6 +126,14 @@ var app = {
       //step 2 build face
       container: $('.faceBuild'),
       stepFunction: function() {
+
+        $.magnificPopup.open({
+          items: {
+            src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
+          },
+          type: 'inline'
+        });
+
         app.faceItem.show();
         app.swiperLayer.show();
         this.container.show().siblings().hide();
@@ -485,7 +493,7 @@ function checkAssetsLoad(){
     clearInterval(loader);
     timer = setInterval(drawScene, 100);
     assetsItems=[];
-
+$.magnificPopup.close();
   }
 
 }
