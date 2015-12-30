@@ -298,13 +298,6 @@ html, body {
   -webkit-box-shadow: 0 0 1px 1px #E3E3E3 inset;
   color: #000;
 }
-.result {
-  position: fixed;
-  left:0px;
-  top:0px;
-  z-index: 99999;
-  
-}
 .result .container .button {
   display: block;
   margin-left: 95px;
