@@ -59,7 +59,6 @@ var app = {
   faceItem: $('.faceItem'),
   bodyItem: $('.bodyItem'),
   generate: $('#generate'),
-
   stepProgram: [
   {
         //step 0. game start
@@ -98,6 +97,7 @@ var app = {
         //step 1. choose gender
         container: $('.genderBuild'),
         stepFunction: function() {
+          var $thisContainer = this.container;
           app.swiperLayer.hide();
           this.container.show().siblings().hide();
 
@@ -106,7 +106,7 @@ var app = {
           app.bodyItem.hide();
           app.generate.hide();
           app.gameSteps.hide();
-          app.nextStep.show().addClass('disable');
+          app.nextStep.show();
           app.gameStart.hide();
 
           //reset timer
@@ -116,12 +116,18 @@ var app = {
           //gender select
           $('.genderBox .item').on('click', function() {
             gender = $(this).attr('val');
+            $thisContainer.data('gender',gender);
 
             $(this).siblings().removeClass('active').end().addClass('active');
             app.nextStep.removeClass('disable');
 
           });
 
+          //if this gender hasBeen select
+          if (!$thisContainer.data('gender')){
+
+            app.nextStep.addClass('disable');
+          }
         }
       },
     {
@@ -129,8 +135,19 @@ var app = {
       container: $('.faceBuild'),
       stepFunction: function() {
         var $thisContainer = this.container;
+        var makeItLoad = function(){
+          $.magnificPopup.open({
+            items: {
+              src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
+            },
+            type: 'inline'
+          });
 
-
+          //load assets
+          assetsPrepare(gender,function(){
+            $thisContainer.data('gender',gender).addClass('assetsLoaded');
+          });
+        }
         app.faceItem.show();
         app.swiperLayer.show();
         this.container.show().siblings().hide();
@@ -150,18 +167,15 @@ var app = {
           headPosY_onFacebuild = 90;
         }
 
-        if (!this.container.hasClass('assetsLoaded')){
-          console.log('assetsLoaded');
-          $.magnificPopup.open({
-            items: {
-              src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
-            },
-            type: 'inline'
-          });
-          //load assets
-          assetsPrepare(gender,function(){
-            $thisContainer.addClass('assetsLoaded');
-          });
+        if ($thisContainer.hasClass('assetsLoaded')== false){
+          //if didn't loaded assets
+          //console.log('assetsLoaded');
+          makeItLoad();
+        } else {
+          if ($thisContainer.data('gender')!=gender){
+            //console.log('assetsLoaded but didnt prepare the gender');
+            makeItLoad();
+          }
         }
       }
     }, {
