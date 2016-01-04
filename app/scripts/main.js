@@ -44,6 +44,8 @@ var userMsg = {
   fillStyle: '#333'
 };
 var assetsItems = [];
+var statusSaver = [0,0,0,0,0,0,0,0];
+
 
 //unknow
 var iSel = 0;
@@ -126,13 +128,8 @@ var app = {
       //step 2 build face
       container: $('.faceBuild'),
       stepFunction: function() {
+        var $thisContainer = this.container;
 
-        $.magnificPopup.open({
-          items: {
-            src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
-          },
-          type: 'inline'
-        });
 
         app.faceItem.show();
         app.swiperLayer.show();
@@ -153,9 +150,19 @@ var app = {
           headPosY_onFacebuild = 90;
         }
 
-        //load assets
-        assetsPrepare(gender);
-
+        if (!this.container.hasClass('assetsLoaded')){
+          console.log('assetsLoaded');
+          $.magnificPopup.open({
+            items: {
+              src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
+            },
+            type: 'inline'
+          });
+          //load assets
+          assetsPrepare(gender,function(){
+            $thisContainer.addClass('assetsLoaded');
+          });
+        }
       }
     }, {
       //step 3 build body item
@@ -418,7 +425,7 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
   context.fillText(line, x, y);
 }
 
-function assetsPrepare(gender) {
+function assetsPrepare(gender,callback) {
 
   if (typeof(timer) == 'number') {
     clearInterval(timer);
@@ -481,11 +488,22 @@ function assetsPrepare(gender) {
   oBackground = new Background(0, 0, 0, 0, 340, 340, oBackgroundImage);
 
 
-  loader = setInterval(checkAssetsLoad,100);
+  loader = setInterval(function(){
+    console.log(assetsItems.length);
+    if (assetsItems.length==9){
+
+      clearInterval(loader);
+      timer = setInterval(drawScene, 100);
+      assetsItems=[];
+      $.magnificPopup.close();
+      callback();
+    }
+
+  },100);
   //refresh the canvas
   //timer = setInterval(drawScene, 100);
 }
-function checkAssetsLoad(){
+function checkAssetsLoad(callback){
 
   console.log(assetsItems.length);
   if (assetsItems.length==9){
@@ -493,7 +511,8 @@ function checkAssetsLoad(){
     clearInterval(loader);
     timer = setInterval(drawScene, 100);
     assetsItems=[];
-$.magnificPopup.close();
+    $.magnificPopup.close();
+    callback;
   }
 
 }
