@@ -5,7 +5,8 @@
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
     "Swiper": "swiper#~3.2.7",
-    "magnific-popup": "~1.0.0"
+    "magnific-popup": "~1.0.0",
+    "imagesloaded": "~4.0.0"
   },
   "overrides": {
     "bootstrap-sass": {

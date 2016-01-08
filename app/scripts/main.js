@@ -229,12 +229,12 @@ var app = {
       }
       var $thisContainer = this.container;
       var makeItLoad = function() {
-        $.magnificPopup.open({
-          items: {
-            src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
-          },
-          type: 'inline'
-        });
+        // $.magnificPopup.open({
+        //   items: {
+        //     src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
+        //   },
+        //   type: 'inline'
+        // });
 
         //load assets
         assetsPrepare(gender, function() {
@@ -734,27 +734,22 @@ function assetsPrepare(gender, callback) {
   var oEyesImage = new Image();
   oEyesImage.src = website_url + 'images/data/' + gender + '/eyes.png';
   oEyesImage.onload = function() {
-    assetsItems.push(this)
   };
   var oEyebrowImage = new Image();
   oEyebrowImage.src = website_url + 'images/data/' + gender + '/eyebrow.png';
   oEyebrowImage.onload = function() {
-    assetsItems.push(this)
   };
   var oMouthsImage = new Image();
   oMouthsImage.src = website_url + 'images/data/' + gender + '/mouths.png';
   oMouthsImage.onload = function() {
-    assetsItems.push(this)
   };
   var oFaceImage = new Image();
   oFaceImage.src = website_url + 'images/data/' + gender + '/face.png';
   oFaceImage.onload = function() {
-    assetsItems.push(this)
   };
   var oFringeImage = new Image();
   oFringeImage.src = website_url + 'images/data/' + gender + '/fringes.png';
   oFringeImage.onload = function() {
-    assetsItems.push(this)
   };
 
 
@@ -762,22 +757,18 @@ function assetsPrepare(gender, callback) {
   var oBodyImage = new Image();
   oBodyImage.src = website_url + 'images/data/' + gender + '/body.png';
   oBodyImage.onload = function() {
-    assetsItems.push(this)
   };
   var oClothImage = new Image();
   oClothImage.src = website_url + 'images/data/' + gender + '/cloth.png';
   oClothImage.onload = function() {
-    assetsItems.push(this)
   };
   var oFootImage = new Image();
   oFootImage.src = website_url + 'images/data/' + gender + '/foot.png';
   oFootImage.onload = function() {
-    assetsItems.push(this)
   };
   var oBackgroundImage = new Image();
   oBackgroundImage.src = website_url + 'images/data/' + gender + '/background.png';
   oBackgroundImage.onload = function() {
-    assetsItems.push(this)
   };
 
   //face part object
@@ -795,35 +786,32 @@ function assetsPrepare(gender, callback) {
   oBackground = new Background(0, 0, 0, 0, 340, 340, oBackgroundImage);
 
 
-  loader = setInterval(function() {
-    console.log(assetsItems.length);
-    if (assetsItems.length == 9) {
-
-      clearInterval(loader);
-      timer = setInterval(drawScene, 100);
-      assetsItems = [];
-      $.magnificPopup.close();
-      callback();
-    }
-
-  }, 100);
+  // loader = setInterval(function() {
+  //   console.log(assetsItems.length);
+  //   if (assetsItems.length == 9) {
+  //
+  //     clearInterval(loader);
+  //     timer = setInterval(drawScene, 100);
+  //     assetsItems = [];
+  //     $.magnificPopup.close();
+  //     callback();
+  //   }
+  //
+  // }, 100);
   //refresh the canvas
-  //timer = setInterval(drawScene, 100);
+  timer = setInterval(drawScene, 100);
 }
 
-function checkAssetsLoad(callback) {
-
-  console.log(assetsItems.length);
-  if (assetsItems.length == 9) {
-
-    clearInterval(loader);
-    timer = setInterval(drawScene, 100);
-    assetsItems = [];
-    $.magnificPopup.close();
-    callback;
-  }
-
-}
+// function checkAssetsLoad(callback) {
+//   console.log(assetsItems.length);
+//   if (assetsItems.length == 9) {
+//     clearInterval(loader);
+//     timer = setInterval(drawScene, 100);
+//     assetsItems = [];
+//     $.magnificPopup.close();
+//     callback;
+//   }
+// }
 
 function checkPortrait() {
   // body...
