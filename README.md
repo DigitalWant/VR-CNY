@@ -5,3 +5,5 @@
 http://cny-game.staging.iris-worldwide.cn/demo.html
 
 
+#app staging
+http://cny-game.staging.iris-worldwide.cn
