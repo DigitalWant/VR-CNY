@@ -26,7 +26,7 @@ var canvas4, ctx4;
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
 //adjust head on facebuild
 var headPosX_onFacebuild = 0;
-var headPosY_onFacebuild = 175;
+var headPosY_onFacebuild = 10;
 
 var allObject = {
   male: {
@@ -201,11 +201,14 @@ var app = {
       new WOW().init();
 
       //gender select
-      $('.genderBox .item').on('click', function() {
+      $genderBtns = $('.genderBox .item');
+
+      $genderBtns.on('click', function() {
         gender = $(this).attr('val');
         $thisContainer.data('gender', gender).data('justSelect', true);
+        $genderBtns.removeClass('active unselect');
 
-        $(this).siblings().removeClass('active').end().addClass('active');
+        $(this).addClass('active').siblings().addClass('unselect');
         app.nextStep.removeClass('disable');
 
       });
@@ -219,40 +222,28 @@ var app = {
     //step 2 build face
     container: $('.faceBuild'),
     stepFunction: function() {
-      app.swiperLayer.hide();
+      //app.swiperLayer.hide();
+      app.faceItem.fadeIn(2000);
+      this.container.show().siblings().hide();
 
+      app.generate.hide();
+      app.prevStep.show();
 
       if (gender == "female") {
         app.femaleSwiperLayer.show();
       } else {
         app.maleSwiperLayer.show();
       }
-      var $thisContainer = this.container;
-      var makeItLoad = function() {
-        // $.magnificPopup.open({
-        //   items: {
-        //     src: $('<div class="white-popup" ><p>loading Assets...</p></div>'),
-        //   },
-        //   type: 'inline'
-        // });
 
+      var $thisContainer = this.container;
+
+      //TODO load
+      var makeItLoad = function() {
         //load assets
         assetsPrepare(gender, function() {
           $thisContainer.data('gender', gender);
         });
       }
-      app.faceItem.show();
-      this.container.show().siblings().hide();
-
-      //Btn control
-      if (app.faceItem.filter('.active').length == 0) {
-        app.faceItem.eq(0).trigger('click');
-      } else {
-        app.faceItem.filter('.active').trigger('click');
-      }
-
-      app.generate.hide();
-      app.prevStep.show();
 
       //adjust iphone 4 position of head
       if (document.documentElement.clientHeight < 500) {
@@ -261,7 +252,7 @@ var app = {
 
       if ($thisContainer.data('gender')) {
         //if didn't loaded assets
-        //
+
         if ($thisContainer.data('gender') == gender) {
           console.log('same gender');
 
@@ -276,7 +267,18 @@ var app = {
 
       }
 
-      if (gender=='female'){
+      app.faceItem.on('click', function(e) {
+        e.preventDefault();
+        $(this).addClass('active').siblings().removeClass('active');
+        elementSwiper.slideTo($(this).attr('val'));
+      });
+      app.bodyItem.on('click', function(e) {
+        e.preventDefault();
+        $(this).addClass('active').siblings().removeClass('active');
+        elementSwiper.slideTo($(this).attr('val'));
+      });
+
+      if (gender == 'female') {
 
         //swiper
         var elementSwiper = new Swiper(app.femaleSwiperLayer, {
@@ -284,15 +286,14 @@ var app = {
             console.log(swiper.activeIndex);
           }
         });
-
         //face type swiper
-        var skinSwiperType = new Swiper('.female.elementSwiper .headSwiperType', {
+        var headSwiperType = new Swiper('.female.elementSwiper .headSwiperType', {
           onSlideChangeStart: function(swiper) {
             oHead.iSpr = parseInt(swiper.activeIndex);
           },
-          centeredSlides: true,
+          centeredSlides: false,
           slidesPerView: 5,
-          direction: 'vertical'
+          direction: 'horizontal'
         });
         var fringeSwiperType = new Swiper('.female.elementSwiper .fringeSwiperType', {
           onSlideChangeStart: function(swiper) {
@@ -300,7 +301,7 @@ var app = {
           },
           centeredSlides: true,
           slidesPerView: 5,
-          direction: 'vertical'
+          direction: 'horizontal'
         });
         var eyebrowSwiperType = new Swiper('.female.elementSwiper .eyebrowSwiperType', {
           onSlideChangeStart: function(swiper) {
@@ -308,7 +309,7 @@ var app = {
           },
           centeredSlides: true,
           slidesPerView: 5,
-          direction: 'vertical'
+          direction: 'horizontal'
         });
         var eyeSwiperType = new Swiper('.female.elementSwiper .eyeSwiperType', {
           onSlideChangeStart: function(swiper) {
@@ -316,7 +317,7 @@ var app = {
           },
           centeredSlides: true,
           slidesPerView: 5,
-          direction: 'vertical'
+          direction: 'horizontal'
         });
         var mouthSwiperType = new Swiper('.female.elementSwiper .mouthSwiperType', {
           onSlideChangeStart: function(swiper) {
@@ -324,7 +325,7 @@ var app = {
           },
           centeredSlides: true,
           slidesPerView: 5,
-          direction: 'vertical'
+          direction: 'horizontal'
         });
         var backgroundSwiperType = new Swiper('.female.elementSwiper .backgroundSwiperType', {
           onSlideChangeStart: function(swiper) {
@@ -431,24 +432,6 @@ var app = {
 
 
 
-
-
-
-      // $('.faceOption a').on('click', function(e) {
-      //   e.preventDefault();
-      //   $(this).addClass('active').siblings().removeClass('active');
-      //   elementSwiper.slideTo($(this).attr('val'));
-      //
-      // });
-      // $('.bodyOption a').on('click', function(e) {
-      //   e.preventDefault();
-      //   $(this).addClass('active').siblings().removeClass('active');
-      //   elementSwiper.slideTo($(this).attr('val'));
-      //
-      // });
-
-
-
     }
   }, {
     //step 3 build body item
@@ -458,7 +441,7 @@ var app = {
       this.container.show().siblings().hide();
 
       //Btn control
-      app.bodyItem.show().eq(0).trigger('click');
+      //app.bodyItem.show().eq(0).trigger('click');
       app.generate.hide();
 
 
@@ -733,43 +716,34 @@ function assetsPrepare(gender, callback) {
 
   var oEyesImage = new Image();
   oEyesImage.src = website_url + 'images/data/' + gender + '/eyes.png';
-  oEyesImage.onload = function() {
-  };
+  oEyesImage.onload = function() {};
   var oEyebrowImage = new Image();
   oEyebrowImage.src = website_url + 'images/data/' + gender + '/eyebrow.png';
-  oEyebrowImage.onload = function() {
-  };
+  oEyebrowImage.onload = function() {};
   var oMouthsImage = new Image();
   oMouthsImage.src = website_url + 'images/data/' + gender + '/mouths.png';
-  oMouthsImage.onload = function() {
-  };
+  oMouthsImage.onload = function() {};
   var oFaceImage = new Image();
   oFaceImage.src = website_url + 'images/data/' + gender + '/face.png';
-  oFaceImage.onload = function() {
-  };
+  oFaceImage.onload = function() {};
   var oFringeImage = new Image();
   oFringeImage.src = website_url + 'images/data/' + gender + '/fringes.png';
-  oFringeImage.onload = function() {
-  };
+  oFringeImage.onload = function() {};
 
 
   //body Part
   var oBodyImage = new Image();
   oBodyImage.src = website_url + 'images/data/' + gender + '/body.png';
-  oBodyImage.onload = function() {
-  };
+  oBodyImage.onload = function() {};
   var oClothImage = new Image();
   oClothImage.src = website_url + 'images/data/' + gender + '/cloth.png';
-  oClothImage.onload = function() {
-  };
+  oClothImage.onload = function() {};
   var oFootImage = new Image();
   oFootImage.src = website_url + 'images/data/' + gender + '/foot.png';
-  oFootImage.onload = function() {
-  };
+  oFootImage.onload = function() {};
   var oBackgroundImage = new Image();
   oBackgroundImage.src = website_url + 'images/data/' + gender + '/background.png';
-  oBackgroundImage.onload = function() {
-  };
+  oBackgroundImage.onload = function() {};
 
   //face part object
   oHead = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
