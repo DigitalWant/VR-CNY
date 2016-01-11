@@ -14,108 +14,33 @@ var gender = 'female';
 //canvas face builder relate
 var canvas, ctx;
 var canvas2, ctx2;
-var oHead, oFringe, oEyebrow, oEye, oMouth, oTop;
-var faceObject = [oHead, oFringe, oEyebrow, oEye, oMouth, oTop];
+var oHead, oFringe, oEye, oMouth;
+// var faceObject = {
+//   oHead:{}, oFringe:{}, oEye:{}, oMouth:{}
+// };
+var faceObject = [oHead, oFringe, oEye, oMouth];
+
 var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 
 //canvas body builder relate
 var canvas3, ctx3;
 var canvas4, ctx4;
 
-
 var oBody, oCloth, oLeg, oFoot, oAccessory, oBackground;
+var bodyObject = [oBackground,oBody, oCloth, oLeg, oFoot, oAccessory]
+
 //adjust head on facebuild
 var headPosX_onFacebuild = 0;
 var headPosY_onFacebuild = 10;
-
-var allObject = {
-  male: {
-    oHead: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.headSwiperType'
-    },
-    oFringe: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.fringeSwiperType'
-    },
-    oEyebrow: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.eyebrowSwiperType'
-    },
-    oEye: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.eyeSwiperType'
-    },
-    oMouth: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.mouthSwiperType'
-    },
-    oCloth: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.clothSwiperType'
-    },
-    oFoot: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.footSwiperType'
-    },
-    oBackground: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.backgroundSwiperType'
-    }
-  },
-  female: {
-    oHead: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.headSwiperType'
-    },
-    oFringe: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.fringeSwiperType'
-    },
-    oEyebrow: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.eyebrowSwiperType'
-    },
-    oEye: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.eyeSwiperType'
-    },
-    oMouth: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.mouthSwiperType'
-    },
-    oCloth: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.clothSwiperType'
-    },
-    oFoot: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.footSwiperType'
-    },
-    oBackground: {
-      iSpr: 0,
-      typeSwiper: null,
-      selector: '.backgroundSwiperType'
-    }
-  }
-};
-
+var headScaleW_onFacebuild = 1;
+var headScaleH_onFacebuild = 1;
+var headPosY_onFacebuild_onIphone4 = 90;
 //adjust head on bodybuild
+var headPosX_onBodybuild = 0;
+var headPosY_onBodybuild = 10;
+var headScaleW_onBodybuild = 1;
+var headScaleH_onBodybuild = 1;
+
 var headScale = 0.30;
 var headPosX = 125;
 var headPosY = 10;
@@ -138,8 +63,10 @@ var iSel = 0;
 var app = {
   step: 0,
   swiperLayer: $('.elementSwiper'),
-  femaleSwiperLayer: $('.elementSwiper.female'),
-  maleSwiperLayer: $('.elementSwiper.male'),
+  femaleFaceSwiperLayer: $('.elementSwiper.femaleFace'),
+  maleFaceSwiperLayer: $('.elementSwiper.maleFace'),
+  femaleBodySwiperLayer: $('.elementSwiper.femaleBody'),
+  maleBodySwiperLayer: $('.elementSwiper.maleBody'),
   gameStart: $('.gameStart'),
   gameSteps: $('.nextStep,.prevStep'),
   nextStep: $('.nextStep'),
@@ -151,15 +78,8 @@ var app = {
     //step 0. game start
     container: $('.startup'),
     stepFunction: function() {
-      app.swiperLayer.hide();
       this.container.show().siblings().hide();
-
-      //Btn control
-      app.faceItem.hide();
-      app.bodyItem.hide();
-      app.generate.hide();
       app.gameSteps.hide();
-      app.gameStart.show();
 
       //begin button
       $('.btnBegin').on('click', function() {
@@ -184,17 +104,17 @@ var app = {
     //step 1. choose gender
     container: $('.genderBuild'),
     stepFunction: function() {
-      var $thisContainer = this.container;
-      app.swiperLayer.hide();
       this.container.show().siblings().hide();
 
+      var $thisContainer = this.container;
+
       //Btn control
-      app.faceItem.hide();
-      app.bodyItem.hide();
-      app.generate.hide();
       app.gameSteps.hide();
       app.nextStep.show();
-      app.gameStart.hide();
+      //if this gender hasBeen select
+      if (!$thisContainer.data('gender')) {
+        app.nextStep.addClass('disable');
+      }
 
       //reset timer
       clearInterval(timer);
@@ -207,35 +127,44 @@ var app = {
         gender = $(this).attr('val');
         $thisContainer.data('gender', gender).data('justSelect', true);
         $genderBtns.removeClass('active unselect');
-
         $(this).addClass('active').siblings().addClass('unselect');
         app.nextStep.removeClass('disable');
-
       });
 
-      //if this gender hasBeen select
-      if (!$thisContainer.data('gender')) {
-        app.nextStep.addClass('disable');
-      }
     }
   }, {
     //step 2 build face
     container: $('.faceBuild'),
     stepFunction: function() {
-      //app.swiperLayer.hide();
-      app.faceItem.fadeIn(2000);
       this.container.show().siblings().hide();
-
-      app.generate.hide();
+      var $thisContainer = this.container;
+      //face element swiper
+      var elementSwiper;
+      var elementIndex = 0;
+      var elementonSlideChangeEnd = {
+          onSlideChangeEnd: function(swiper, event) {
+            elementIndex = swiper.activeIndex;
+            //console.log(elementIndex);
+          }
+        }
+        //app.swiperLayer.hide();
+      app.faceItem.fadeIn(2000);
       app.prevStep.show();
 
       if (gender == "female") {
-        app.femaleSwiperLayer.show();
+        app.femaleFaceSwiperLayer.show();
+        app.maleFaceSwiperLayer.hide();
+        elementSwiper = new Swiper(app.femaleFaceSwiperLayer, elementonSlideChangeEnd);
       } else {
-        app.maleSwiperLayer.show();
+        app.maleFaceSwiperLayer.show();
+        app.femaleFaceSwiperLayer.hide();
+        elementSwiper = new Swiper(app.maleFaceSwiperLayer, elementonSlideChangeEnd);
       }
 
-      var $thisContainer = this.container;
+      //adjust iphone 4 position of head
+      if (document.documentElement.clientHeight < 500) {
+        headPosY_onFacebuild = headPosY_onFacebuild_onIphone4;
+      }
 
       //TODO load
       var makeItLoad = function() {
@@ -245,26 +174,13 @@ var app = {
         });
       }
 
-      //adjust iphone 4 position of head
-      if (document.documentElement.clientHeight < 500) {
-        headPosY_onFacebuild = 90;
-      }
-
       if ($thisContainer.data('gender')) {
         //if didn't loaded assets
-
-        if ($thisContainer.data('gender') == gender) {
-          console.log('same gender');
-
-        } else {
-          console.log('different gender');
+        if ($thisContainer.data('gender') == gender) {} else {
           makeItLoad();
         }
-
       } else {
-
         makeItLoad();
-
       }
 
       app.faceItem.on('click', function(e) {
@@ -272,179 +188,84 @@ var app = {
         $(this).addClass('active').siblings().removeClass('active');
         elementSwiper.slideTo($(this).attr('val'));
       });
-      app.bodyItem.on('click', function(e) {
-        e.preventDefault();
-        $(this).addClass('active').siblings().removeClass('active');
-        elementSwiper.slideTo($(this).attr('val'));
-      });
 
-      if (gender == 'female') {
-
-        //swiper
-        var elementSwiper = new Swiper(app.femaleSwiperLayer, {
+      //face item element swiper
+      for (var i = 0; i < faceObject.length; i++) {
+        faceObject[i]['instance'] = new Swiper('.' + gender + 'Face ' + faceObject[i]['domEle'], {
           onSlideChangeStart: function(swiper) {
-            console.log(swiper.activeIndex);
-          }
-        });
-        //face type swiper
-        var headSwiperType = new Swiper('.female.elementSwiper .headSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oHead.iSpr = parseInt(swiper.activeIndex);
+            faceObject[i]['iSpr'] = parseInt(swiper.activeIndex);
           },
           centeredSlides: false,
           slidesPerView: 5,
-          direction: 'horizontal'
-        });
-        var fringeSwiperType = new Swiper('.female.elementSwiper .fringeSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oFringe.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'horizontal'
-        });
-        var eyebrowSwiperType = new Swiper('.female.elementSwiper .eyebrowSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oEyebrow.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'horizontal'
-        });
-        var eyeSwiperType = new Swiper('.female.elementSwiper .eyeSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oEye.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'horizontal'
-        });
-        var mouthSwiperType = new Swiper('.female.elementSwiper .mouthSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oMouth.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'horizontal'
-        });
-        var backgroundSwiperType = new Swiper('.female.elementSwiper .backgroundSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oBackground.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var clothSwiperType = new Swiper('.female.elementSwiper .clothSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oCloth.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var footSwiperType = new Swiper('.female.elementSwiper .footSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oFoot.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-      } else {
-        //swiper
-        var elementSwiper = new Swiper(app.maleSwiperLayer, {
-          onSlideChangeStart: function(swiper) {
-            console.log(swiper.activeIndex);
+          direction: 'horizontal',
+          allowSwipeToPrev: false,
+          allowSwipeToNext: false,
+          onTap: function(swiper, event) {
+            faceObject[elementIndex]['iSpr'] = parseInt(swiper.clickedIndex);
           }
         });
-
-        //face type swiper
-        var skinSwiperType = new Swiper('.male.elementSwiper .headSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oHead.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var fringeSwiperType = new Swiper('.male.elementSwiper .fringeSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oFringe.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var eyebrowSwiperType = new Swiper('.male.elementSwiper .eyebrowSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oEyebrow.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var eyeSwiperType = new Swiper('.male.elementSwiper .eyeSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oEye.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var mouthSwiperType = new Swiper('.male.elementSwiper .mouthSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oMouth.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var backgroundSwiperType = new Swiper('.male.elementSwiper .backgroundSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oBackground.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var clothSwiperType = new Swiper('.male.elementSwiper .clothSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oCloth.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-        var footSwiperType = new Swiper('.male.elementSwiper .footSwiperType', {
-          onSlideChangeStart: function(swiper) {
-            oFoot.iSpr = parseInt(swiper.activeIndex);
-          },
-          centeredSlides: true,
-          slidesPerView: 5,
-          direction: 'vertical'
-        });
-
       }
-
-
-
-
-
 
     }
   }, {
     //step 3 build body item
     container: $('.bodyBuild'),
     stepFunction: function() {
-      app.swiperLayer.show();
       this.container.show().siblings().hide();
+      var $thisContainer = this.container;
+      //face element swiper
+      var elementSwiper;
+      var elementIndex = 0;
+      var elementonSlideChangeEnd = {
+          onSlideChangeEnd: function(swiper, event) {
+            elementIndex = swiper.activeIndex;
+            //console.log(elementIndex);
+          }
+        }
+        //app.swiperLayer.hide();
+      app.bodyItem.fadeIn(2000);
 
-      //Btn control
-      //app.bodyItem.show().eq(0).trigger('click');
-      app.generate.hide();
-
-
+      //   var elementSwiper ;
+      //
+      //   app.bodyItem.on('click', function(e) {
+      //     e.preventDefault();
+      //     $(this).addClass('active').siblings().removeClass('active');
+      //     elementSwiper.slideTo($(this).attr('val'));
+      //   });
+      //
+      //
+      //   if (gender == "female") {
+      //     app.femaleBodySwiperLayer.show();
+      //     app.maleBodySwiperLayer.hide();
+      //     elementSwiper = new Swiper(app.femaleBodySwiperLayer);
+      //   } else {
+      //     app.maleBodySwiperLayer.show();
+      //     app.femaleBodySwiperLayer.hide();
+      //     elementSwiper = new Swiper(app.maleBodySwiperLayer);
+      //   }
+      //
+      //
+      //
+      //   for (var i in bodyObject) {
+      //     bodyObject[i]['instance'] = new Swiper('.'+gender+'Body ' + bodyObject[i]['domEle'], {
+      //       onSlideChangeStart: function(swiper) {
+      //         bodyObject[i]['iSpr'] = parseInt(swiper.activeIndex);
+      //       },
+      //       centeredSlides: false,
+      //       slidesPerView: 5,
+      //       direction: 'horizontal',
+      //       allowSwipeToPrev: false,
+      //       allowSwipeToNext: false,
+      //       onTap:function(swiper, event){
+      //         //console.log(swiper.clickedIndex);
+      //         changeElement(elementSwiper,swiper.clickedIndex);
+      //         //swiper.activeIndex = swiper.clickedIndex;
+      //         //faceObject[i]['instance'].slideTo(swiper.clickedIndex);
+      //       }
+      //     });
+      //   }
+      //
+      //
     }
   }, {
     //step4. put message on final result
@@ -462,6 +283,11 @@ var app = {
 
     }
   }]
+}
+
+function changeElement(elementCategory, elementIndex) {
+  console.log(elementCategory, elementIndex);
+
 }
 
 function sendResultToServer(vData) {
@@ -496,7 +322,9 @@ function Head(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.domEle = '.headSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
 }
 
 function Fringe(x, y, x2, y2, w, h, image) {
@@ -507,7 +335,9 @@ function Fringe(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.domEle = '.fringeSwiperType';
+  this.putOn = ['ctx2', 'ctx4'];
 }
 
 function Eye(x, y, x2, y2, w, h, image) {
@@ -518,18 +348,9 @@ function Eye(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
-}
-
-function Eyebrow(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.domEle = '.eyeSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
 }
 
 function Mouth(x, y, x2, y2, w, h, image) {
@@ -540,19 +361,34 @@ function Mouth(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.domEle = '.mouthSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
 }
+//no Eyebrow
+// function Eyebrow(x, y, x2, y2, w, h, image) {
+//   this.x = x;
+//   this.y = y;
+//   this.x2 = x2;
+//   this.y2 = y2;
+//   this.w = w;
+//   this.h = h;
+//   this.image = image;
+//   this.iSpr = 0;
+//   this.domEle = '.eyebrowSwiperType';
+// }
 
-function Top(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0
-}
+
+// function Top(x, y, x2, y2, w, h, image) {
+//   this.x = x;
+//   this.y = y;
+//   this.x2 = x2;
+//   this.y2 = y2;
+//   this.w = w;
+//   this.h = h;
+//   this.image = image;
+//   this.iSpr = 0
+// }
 
 function Body(x, y, x2, y2, w, h, image) {
   this.x = x;
@@ -562,7 +398,9 @@ function Body(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.putOn = ['ctx3'];
+
 };
 
 function Cloth(x, y, x2, y2, w, h, image) {
@@ -573,7 +411,9 @@ function Cloth(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.putOn = ['ctx3'];
+
 };
 
 function Leg(x, y, x2, y2, w, h, image) {
@@ -584,7 +424,9 @@ function Leg(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.putOn = ['ctx3'];
+
 };
 
 function Foot(x, y, x2, y2, w, h, image) {
@@ -595,7 +437,9 @@ function Foot(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.putOn = ['ctx3'];
+
 };
 
 function Background(x, y, x2, y2, w, h, image) {
@@ -606,7 +450,9 @@ function Background(x, y, x2, y2, w, h, image) {
   this.w = w;
   this.h = h;
   this.image = image;
-  this.iSpr = 0
+  this.iSpr = 0;
+  this.domEle = '.backgroundSwiperType';
+  this.putOn = ['ctx3'];
 };
 
 
@@ -623,28 +469,69 @@ function drawScene() {
 
 
   clear();
-  //console.log('instance');
+
   //ctx bg>head>eyebrow>eye>fringe>mouth
-  ctx.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
-  ctx.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x + headPosX_onFacebuild, oHead.y + headPosY_onFacebuild, oHead.w, oHead.h);
+  // ctx.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
+  for (var i = 0; i < faceObject.length; i++) {
+    //console.log(faceObject)
+
+    if (faceObject[i].putOn.indexOf('ctx1')) {
+      ctx.drawImage(
+        faceObject[i]['image'],
+        faceObject[i].x2 + faceObject[i].iSpr * faceObject[i].w,
+        faceObject[i].y2,
+        faceObject[i].w,
+        faceObject[i].h,
+        faceObject[i].x + headPosX_onFacebuild,
+        faceObject[i].y + headPosY_onFacebuild,
+        faceObject[i].w,
+        faceObject[i].h);
+    }
+
+    if (faceObject[i].putOn.indexOf('ctx2')) {
+      ctx2.drawImage(
+        faceObject[i]['image'],
+        faceObject[i].x2 + faceObject[i].iSpr * faceObject[i].w,
+        faceObject[i].y2,
+        faceObject[i].w * 1,
+        faceObject[i].h * 1,
+        faceObject[i].x + headPosX_onFacebuild,
+        faceObject[i].y + headPosY_onFacebuild,
+        faceObject[i].w * headScaleW_onFacebuild,
+        faceObject[i].h * headScaleH_onFacebuild);
+    }
+
+    if (faceObject[i].putOn.indexOf('ctx3') ){
+      //ctx3 bg>body>foot>cloth>head>eyebrow>eye>fringe>mouth
+      ctx3.drawImage(
+        faceObject[i].image,
+        faceObject[i].x2 + faceObject[i].iSpr * faceObject[i].w,
+        faceObject[i].y2,
+        faceObject[i].w * 1,
+        faceObject[i].h * 1,
+        faceObject[i].x + headPosX_onBodybuild,
+        faceObject[i].y + headPosY_onBodybuild,
+        faceObject[i].w * headScaleW_onBodybuild,
+        faceObject[i].h * headScaleH_onBodybuild);
+    }
+  }
+
+
   //ctx.drawImage(oTop.image, oTop.x2 + oTop.iSpr * oTop.w, oTop.y2, oTop.w, oTop.h, oTop.x, oTop.y, oTop.w, oTop.h);
-  ctx.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x + headPosX_onFacebuild, oEyebrow.y + headPosY_onFacebuild, oEyebrow.w, oEyebrow.h);
-  ctx.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x + headPosX_onFacebuild, oEye.y + headPosY_onFacebuild, oEye.w, oEye.h);
-  ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX_onFacebuild, oMouth.y + headPosY_onFacebuild, oMouth.w, oMouth.h);
+  //ctx.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x + headPosX_onFacebuild, oEyebrow.y + headPosY_onFacebuild, oEyebrow.w, oEyebrow.h);
+  //ctx.drawImage(faceObject['oEye'].image, faceObject['oEye'].x2 + faceObject['oEye'].iSpr * faceObject['oEye'].w, faceObject['oEye'].y2, faceObject['oEye'].w, faceObject['oEye'].h, faceObject['oEye'].x + headPosX_onFacebuild, faceObject['oEye'].y + headPosY_onFacebuild, faceObject['oEye'].w, faceObject['oEye'].h);
+  //ctx.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX_onFacebuild, oMouth.y + headPosY_onFacebuild, oMouth.w, oMouth.h);
 
-  //ctx2
-  ctx2.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x + headPosX_onFacebuild, oFringe.y + headPosY_onFacebuild, oFringe.w, oFringe.h);
 
-  //ctx3 bg>body>foot>cloth>head>eyebrow>eye>fringe>mouth
-  ctx3.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
-  ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
-  ctx3.drawImage(oFoot.image, oFoot.x2 + oFoot.iSpr * oFoot.w, oFoot.y2, oFoot.w, oFoot.h, oFoot.x, oFoot.y, oFoot.w, oFoot.h);
-  ctx3.drawImage(oCloth.image, oCloth.x2 + oCloth.iSpr * oCloth.w, oCloth.y2, oCloth.w, oCloth.h, oCloth.x, oCloth.y, oCloth.w, oCloth.h);
-  ctx3.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x + headPosX, oHead.y + headPosY, oHead.w * headScale, oHead.h * headScale);
-  ctx3.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x + headPosX, oEyebrow.y + headPosY, oEyebrow.w * headScale, oEyebrow.h * headScale);
-  ctx3.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x + headPosX, oEye.y + headPosY, oEye.w * headScale, oEye.h * headScale);
-  ctx3.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x + headPosX, oFringe.y + headPosY, oFringe.w * headScale, oFringe.h * headScale);
-  ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX, oMouth.y + headPosY, oMouth.w * headScale, oMouth.h * headScale);
+  // ctx3.drawImage(oBackground.image, oBackground.x2 + oBackground.iSpr * oBackground.w, oBackground.y2, oBackground.w, oBackground.h, oBackground.x, oBackground.y, oBackground.w, oBackground.h);
+  // ctx3.drawImage(oBody.image, oBody.x2 + oBody.iSpr * oBody.w, oBody.y2, oBody.w, oBody.h, oBody.x, oBody.y, oBody.w, oBody.h);
+  // ctx3.drawImage(oFoot.image, oFoot.x2 + oFoot.iSpr * oFoot.w, oFoot.y2, oFoot.w, oFoot.h, oFoot.x, oFoot.y, oFoot.w, oFoot.h);
+  // ctx3.drawImage(oCloth.image, oCloth.x2 + oCloth.iSpr * oCloth.w, oCloth.y2, oCloth.w, oCloth.h, oCloth.x, oCloth.y, oCloth.w, oCloth.h);
+  // ctx3.drawImage(oHead.image, oHead.x2 + oHead.iSpr * oHead.w, oHead.y2, oHead.w, oHead.h, oHead.x + headPosX, oHead.y + headPosY, oHead.w * headScale, oHead.h * headScale);
+  // ctx3.drawImage(oEyebrow.image, oEyebrow.x2 + oEyebrow.iSpr * oEyebrow.w, oEyebrow.y2, oEyebrow.w, oEyebrow.h, oEyebrow.x + headPosX, oEyebrow.y + headPosY, oEyebrow.w * headScale, oEyebrow.h * headScale);
+  // ctx3.drawImage(oEye.image, oEye.x2 + oEye.iSpr * oEye.w, oEye.y2, oEye.w, oEye.h, oEye.x + headPosX, oEye.y + headPosY, oEye.w * headScale, oEye.h * headScale);
+  // ctx3.drawImage(oFringe.image, oFringe.x2 + oFringe.iSpr * oFringe.w, oFringe.y2, oFringe.w, oFringe.h, oFringe.x + headPosX, oFringe.y + headPosY, oFringe.w * headScale, oFringe.h * headScale);
+  // ctx3.drawImage(oMouth.image, oMouth.x2 + oMouth.iSpr * oMouth.w, oMouth.y2, oMouth.w, oMouth.h, oMouth.x + headPosX, oMouth.y + headPosY, oMouth.w * headScale, oMouth.h * headScale);
 
   // ctx4 clone from ctx3
   ctx4.drawImage(canvas3, 0, 0);
@@ -713,13 +600,10 @@ function assetsPrepare(gender, callback) {
   canvas4 = document.getElementById('scene4');
   ctx4 = canvas4.getContext('2d');
 
-
+  //face Part
   var oEyesImage = new Image();
   oEyesImage.src = website_url + 'images/data/' + gender + '/eyes.png';
   oEyesImage.onload = function() {};
-  var oEyebrowImage = new Image();
-  oEyebrowImage.src = website_url + 'images/data/' + gender + '/eyebrow.png';
-  oEyebrowImage.onload = function() {};
   var oMouthsImage = new Image();
   oMouthsImage.src = website_url + 'images/data/' + gender + '/mouths.png';
   oMouthsImage.onload = function() {};
@@ -732,32 +616,31 @@ function assetsPrepare(gender, callback) {
 
 
   //body Part
-  var oBodyImage = new Image();
-  oBodyImage.src = website_url + 'images/data/' + gender + '/body.png';
-  oBodyImage.onload = function() {};
-  var oClothImage = new Image();
-  oClothImage.src = website_url + 'images/data/' + gender + '/cloth.png';
-  oClothImage.onload = function() {};
-  var oFootImage = new Image();
-  oFootImage.src = website_url + 'images/data/' + gender + '/foot.png';
-  oFootImage.onload = function() {};
+  // var oBodyImage = new Image();
+  // oBodyImage.src = website_url + 'images/data/' + gender + '/body.png';
+  // oBodyImage.onload = function() {};
+  // var oClothImage = new Image();
+  // oClothImage.src = website_url + 'images/data/' + gender + '/cloth.png';
+  // oClothImage.onload = function() {};
+  // var oFootImage = new Image();
+  // oFootImage.src = website_url + 'images/data/' + gender + '/foot.png';
+  // oFootImage.onload = function() {};
   var oBackgroundImage = new Image();
   oBackgroundImage.src = website_url + 'images/data/' + gender + '/background.png';
   oBackgroundImage.onload = function() {};
 
   //face part object
-  oHead = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
-  oFringe = new Fringe(0, 0, 0, 0, 340, 340, oFringeImage);
-  oEye = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
-  oEyebrow = new Eyebrow(0, 0, 0, 0, 340, 340, oEyebrowImage);
-  oMouth = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
+  faceObject[0] = new Head(0, 0, 0, 0, 340, 340, oFaceImage);
+  faceObject[1] = new Fringe(0, 0, 0, 0, 340, 340, oFringeImage);
+  faceObject[2] = new Eye(0, 0, 0, 0, 340, 340, oEyesImage);
+  faceObject[3] = new Mouth(0, 0, 0, 0, 340, 340, oMouthsImage);
 
   //body part object
-  oBody = new Body(0, 0, 0, 0, 340, 477, oBodyImage);
-  oCloth = new Cloth(0, 0, 0, 0, 340, 477, oClothImage);
-  // oLeg = new Leg(0,0,0,0,340,340,oLeg);
-  oFoot = new Foot(0, 0, 0, 0, 340, 477, oFootImage);
-  oBackground = new Background(0, 0, 0, 0, 340, 340, oBackgroundImage);
+  // oBody = new Body(0, 0, 0, 0, 340, 477, oBodyImage);
+  // oCloth = new Cloth(0, 0, 0, 0, 340, 477, oClothImage);
+  // // oLeg = new Leg(0,0,0,0,340,340,oLeg);
+  // oFoot = new Foot(0, 0, 0, 0, 340, 477, oFootImage);
+  bodyObject[0] = new Background(0, 0, 0, 0, 340, 340, oBackgroundImage);
 
 
   // loader = setInterval(function() {
@@ -773,7 +656,7 @@ function assetsPrepare(gender, callback) {
   //
   // }, 100);
   //refresh the canvas
-  timer = setInterval(drawScene, 100);
+  timer = setInterval(drawScene, 1000);
 }
 
 // function checkAssetsLoad(callback) {

@@ -60,9 +60,15 @@
         </p>
       </div>
       <div class="genderBox">
-        <div class="item female" val='female'><img src="images/data/female/female.png" alt="female" /></div>
-        <div class="item male" val='male'><img src="images/data/male/male.png" alt="male" /></div>
+        <div class="item female" val='female'>
+          <img src="images/data/female/female.png" alt="female" />
+        </div>
+        <div class="item male" val='male'>
+          <img src="images/data/male/male.png" alt="male" />
+        </div>
       </div>
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
     </div>
     <div class="scene faceBuild">
       <canvas id="scene" width="340" height="570"></canvas>
@@ -72,25 +78,213 @@
         <div class="ba_tabs face">
           <a href="#head" val='0' class="button faceItem head">Head</a>
           <a href="#fringes" val='1' class="button faceItem fringe">Fringe</a>
-          <!-- <a href="#eyebrows" val='2' class="button faceItem eyebrow">Eyebrows</a> -->
-          <a href="#eyes" val='3' class="button faceItem eye">Eyes</a>
-          <a href="#mouths" val='4' class="button faceItem mouth">Mouth</a>
+          <a href="#eyes" val='2' class="button faceItem eye">Eyes</a>
+          <a href="#mouths" val='3' class="button faceItem mouth">Mouth</a>
         </div>
         <!-- end of main type buttons -->
       </div>
+      <div class="elementSwiper femaleFace swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="headSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-h-1</div>
+                <div class="swiper-slide" val="1">female-h-2</div>
+                <div class="swiper-slide" val="2">female-h-3</div>
+                <div class="swiper-slide" val="3">female-h-4</div>
+                <div class="swiper-slide" val="4">female-h-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="fringeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-F-1</div>
+                <div class="swiper-slide" val="1">female-F-2</div>
+                <div class="swiper-slide" val="2">female-F-3</div>
+                <div class="swiper-slide" val="3">female-F-4</div>
+                <div class="swiper-slide" val="4">female-F-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="eyeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-E-1</div>
+                <div class="swiper-slide" val="1">female-E-2</div>
+                <div class="swiper-slide" val="2">female-E-3</div>
+                <div class="swiper-slide" val="3">female-E-4</div>
+                <div class="swiper-slide" val="4">female-E-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="mouthSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-M-1</div>
+                <div class="swiper-slide" val="1">female-M-2</div>
+                <div class="swiper-slide" val="2">female-M-3</div>
+                <div class="swiper-slide" val="3">female-M-4</div>
+                <div class="swiper-slide" val="4">female-M-5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="elementSwiper maleFace swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="headSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-h-1</div>
+                <div class="swiper-slide" val="1">male-h-2</div>
+                <div class="swiper-slide" val="2">male-h-3</div>
+                <div class="swiper-slide" val="3">male-h-4</div>
+                <div class="swiper-slide" val="4">male-h-5</div>
+                <div class="swiper-slide" val="5">male-h-6</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="fringeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-F-1</div>
+                <div class="swiper-slide" val="1">male-F-2</div>
+                <div class="swiper-slide" val="2">male-F-3</div>
+                <div class="swiper-slide" val="3">male-F-4</div>
+                <div class="swiper-slide" val="4">male-F-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="eyeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-E-1</div>
+                <div class="swiper-slide" val="1">male-E-2</div>
+                <div class="swiper-slide" val="2">male-E-3</div>
+                <div class="swiper-slide" val="3">male-E-4</div>
+                <div class="swiper-slide" val="4">male-E-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="mouthSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-M-1</div>
+                <div class="swiper-slide" val="1">male-M-2</div>
+                <div class="swiper-slide" val="2">male-M-3</div>
+                <div class="swiper-slide" val="3">male-M-4</div>
+                <div class="swiper-slide" val="4">male-M-5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
     </div>
     <div class="scene bodyBuild">
-      <canvas id="scene3"  width="340" height="570"></canvas>
+      <canvas id="scene3" width="340" height="570"></canvas>
+      <canvas id="scene4" width="340" height="570"></canvas>
       <div class="bodyOption bar">
         <!-- main type buttons -->
-        <div class="ba_tabs">
-          <a href="#tops" class="button">Top</a>
-          <a href="#background" val='5' class="button bodyItem">Background</a>
-          <a href="#cloth" val='6' class="button bodyItem">Cloth</a>
-          <a href="#foot" val='7' class="button bodyItem">Foot</a>
+        <div class="ba_tabs body">
+          <a href="#cloth" val='4' class="button bodyItem cloth">Cloth</a>
+          <a href="#bag" val='5' class="button bodyItem bag">Bag</a>
+          <a href="#foot" val='6' class="button bodyItem shoes">Shoes</a>
+          <a href="#background" val='7' class="button bodyItem background">Background</a>
         </div>
         <!-- end of main type buttons -->
       </div>
+      <div class="elementSwiper femaleBody swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="clothSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-cloth-1</div>
+                <div class="swiper-slide" val="1">female-cloth-2</div>
+                <div class="swiper-slide" val="2">female-cloth-3</div>
+                <div class="swiper-slide" val="3">female-cloth-4</div>
+                <div class="swiper-slide" val="4">female-cloth-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="bagSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-bag-1</div>
+                <div class="swiper-slide" val="1">female-bag-2</div>
+                <div class="swiper-slide" val="2">female-bag-3</div>
+                <div class="swiper-slide" val="3">female-bag-4</div>
+                <div class="swiper-slide" val="4">female-bag-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="shoesSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-shoes-1</div>
+                <div class="swiper-slide" val="1">female-shoes-2</div>
+                <div class="swiper-slide" val="2">female-shoes-3</div>
+                <div class="swiper-slide" val="3">female-shoes-4</div>
+                <div class="swiper-slide" val="4">female-shoes-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="backgroundSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">female-Background-1</div>
+                <div class="swiper-slide" val="1">female-Background-2</div>
+                <div class="swiper-slide" val="2">female-Background-3</div>
+                <div class="swiper-slide" val="3">female-Background-4</div>
+                <div class="swiper-slide" val="4">female-Background-5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="elementSwiper maleBody swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="backgroundSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-Background-1</div>
+                <div class="swiper-slide" val="1">male-Background-2</div>
+                <div class="swiper-slide" val="2">male-Background-3</div>
+                <div class="swiper-slide" val="3">male-Background-4</div>
+                <div class="swiper-slide" val="4">male-Background-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="clothSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-cloth-1</div>
+                <div class="swiper-slide" val="1">male-cloth-2</div>
+                <div class="swiper-slide" val="2">male-cloth-3</div>
+                <div class="swiper-slide" val="3">male-cloth-4</div>
+                <div class="swiper-slide" val="4">male-cloth-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="footSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">male-footer-1</div>
+                <div class="swiper-slide" val="1">male-footer-2</div>
+                <div class="swiper-slide" val="2">male-footer-3</div>
+                <div class="swiper-slide" val="3">male-footer-4</div>
+                <div class="swiper-slide" val="4">male-footer-5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
     </div>
     <div class="scene msgBuild">
       <canvas id="scene4" width="340" height="570"></canvas>
@@ -102,290 +296,13 @@
         <div></div>
         <div></div>
       </div>
+      <div id="generate">
+        <button class="button">Generate Image</button>
+      </div>
     </div>
   </div>
   <!-- end of main -->
-  <div class="elementSwiper female swiper-container">
-    <div class="swiper-wrapper">
-      <div class="screen swiper-slide">
-        <div class="headSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-h-1</div>
-            <div class="swiper-slide" val="1">female-h-2</div>
-            <div class="swiper-slide" val="2">female-h-3</div>
-            <div class="swiper-slide" val="3">female-h-4</div>
-            <div class="swiper-slide" val="4">female-h-5</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="fringeSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-F-1</div>
-            <div class="swiper-slide" val="1">female-F-2</div>
-            <div class="swiper-slide" val="2">female-F-3</div>
-            <div class="swiper-slide" val="3">female-F-4</div>
-            <div class="swiper-slide" val="4">female-F-5</div>
-            <div class="swiper-slide" val="5">female-F-6</div>
-            <div class="swiper-slide" val="6">female-F-7</div>
-            <div class="swiper-slide" val="7">female-F-8</div>
-            <div class="swiper-slide" val="8">female-F-9</div>
-            <div class="swiper-slide" val="9">female-F-10</div>
-            <div class="swiper-slide" val="10">female-F-11</div>
-            <div class="swiper-slide" val="11">female-F-12</div>
-            <div class="swiper-slide" val="12">female-F-13</div>
-            <div class="swiper-slide" val="13">female-F-14</div>
-            <div class="swiper-slide" val="14">female-F-15</div>
-            <div class="swiper-slide" val="15">female-F-16</div>
-            <div class="swiper-slide" val="16">female-F-17</div>
-            <div class="swiper-slide" val="17">female-F-18</div>
-            <div class="swiper-slide" val="18">female-F-19</div>
-            <div class="swiper-slide" val="19">female-F-20</div>
-            <div class="swiper-slide" val="20">female-F-21</div>
-            <div class="swiper-slide" val="21">female-F-22</div>
-            <div class="swiper-slide" val="22">female-F-23</div>
-            <div class="swiper-slide" val="23">female-F-24</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="eyebrowSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-EB-1</div>
-            <div class="swiper-slide" val="1">female-EB-2</div>
-            <div class="swiper-slide" val="2">female-EB-3</div>
-            <div class="swiper-slide" val="3">female-EB-4</div>
-            <div class="swiper-slide" val="4">female-EB-5</div>
-            <div class="swiper-slide" val="5">female-EB-6</div>
-            <div class="swiper-slide" val="6">female-EB-7</div>
-            <div class="swiper-slide" val="7">female-EB-8</div>
-            <div class="swiper-slide" val="8">female-EB-9</div>
-            <div class="swiper-slide" val="9">female-EB-10</div>
-            <div class="swiper-slide" val="10">female-EB-11</div>
-            <div class="swiper-slide" val="11">female-EB-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="eyeSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-E-1</div>
-            <div class="swiper-slide" val="1">female-E-2</div>
-            <div class="swiper-slide" val="2">female-E-3</div>
-            <div class="swiper-slide" val="3">female-E-4</div>
-            <div class="swiper-slide" val="4">female-E-5</div>
-            <div class="swiper-slide" val="5">female-E-6</div>
-            <div class="swiper-slide" val="6">female-E-7</div>
-            <div class="swiper-slide" val="7">female-E-8</div>
-            <div class="swiper-slide" val="8">female-E-9</div>
-            <div class="swiper-slide" val="9">female-E-10</div>
-            <div class="swiper-slide" val="10">female-E-11</div>
-            <div class="swiper-slide" val="11">female-E-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="mouthSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-M-1</div>
-            <div class="swiper-slide" val="1">female-M-2</div>
-            <div class="swiper-slide" val="2">female-M-3</div>
-            <div class="swiper-slide" val="3">female-M-4</div>
-            <div class="swiper-slide" val="4">female-M-5</div>
-            <div class="swiper-slide" val="5">female-M-6</div>
-            <div class="swiper-slide" val="6">female-M-7</div>
-            <div class="swiper-slide" val="7">female-M-8</div>
-            <div class="swiper-slide" val="8">female-M-9</div>
-            <div class="swiper-slide" val="9">female-M-10</div>
-            <div class="swiper-slide" val="10">female-M-11</div>
-            <div class="swiper-slide" val="11">female-M-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="backgroundSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-Background-1</div>
-            <div class="swiper-slide" val="1">female-Background-2</div>
-            <div class="swiper-slide" val="2">female-Background-3</div>
-            <div class="swiper-slide" val="3">female-Background-4</div>
-            <div class="swiper-slide" val="4">female-Background-5</div>
-            <div class="swiper-slide" val="5">female-Background-6</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="clothSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-cloth-1</div>
-            <div class="swiper-slide" val="1">female-cloth-2</div>
-            <div class="swiper-slide" val="2">female-cloth-3</div>
-            <div class="swiper-slide" val="3">female-cloth-4</div>
-            <div class="swiper-slide" val="4">female-cloth-5</div>
-            <div class="swiper-slide" val="5">female-cloth-6</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="footSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">female-footer-1</div>
-            <div class="swiper-slide" val="1">female-footer-2</div>
-            <div class="swiper-slide" val="2">female-footer-3</div>
-            <div class="swiper-slide" val="3">female-footer-4</div>
-            <div class="swiper-slide" val="4">female-footer-5</div>
-            <div class="swiper-slide" val="5">female-footer-6</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="elementSwiper male swiper-container">
-    <div class="swiper-wrapper">
-      <div class="screen swiper-slide">
-        <div class="headSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-h-1</div>
-            <div class="swiper-slide" val="1">male-h-2</div>
-            <div class="swiper-slide" val="2">male-h-3</div>
-            <div class="swiper-slide" val="3">male-h-4</div>
-            <div class="swiper-slide" val="4">male-h-5</div>
-            <div class="swiper-slide" val="5">male-h-6</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="fringeSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-F-1</div>
-            <div class="swiper-slide" val="1">male-F-2</div>
-            <div class="swiper-slide" val="2">male-F-3</div>
-            <div class="swiper-slide" val="3">male-F-4</div>
-            <div class="swiper-slide" val="4">male-F-5</div>
-            <div class="swiper-slide" val="5">male-F-6</div>
-            <div class="swiper-slide" val="6">male-F-7</div>
-            <div class="swiper-slide" val="7">male-F-8</div>
-            <div class="swiper-slide" val="8">male-F-9</div>
-            <div class="swiper-slide" val="9">male-F-10</div>
-            <div class="swiper-slide" val="10">male-F-11</div>
-            <div class="swiper-slide" val="11">male-F-12</div>
-            <div class="swiper-slide" val="12">male-F-13</div>
-            <div class="swiper-slide" val="13">male-F-14</div>
-            <div class="swiper-slide" val="14">male-F-15</div>
-            <div class="swiper-slide" val="15">male-F-16</div>
-            <div class="swiper-slide" val="16">male-F-17</div>
-            <div class="swiper-slide" val="17">male-F-18</div>
-            <div class="swiper-slide" val="18">male-F-19</div>
-            <div class="swiper-slide" val="19">male-F-20</div>
-            <div class="swiper-slide" val="20">male-F-21</div>
-            <div class="swiper-slide" val="21">male-F-22</div>
-            <div class="swiper-slide" val="22">male-F-23</div>
-            <div class="swiper-slide" val="23">male-F-24</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="eyebrowSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-EB-1</div>
-            <div class="swiper-slide" val="1">male-EB-2</div>
-            <div class="swiper-slide" val="2">male-EB-3</div>
-            <div class="swiper-slide" val="3">male-EB-4</div>
-            <div class="swiper-slide" val="4">male-EB-5</div>
-            <div class="swiper-slide" val="5">male-EB-6</div>
-            <div class="swiper-slide" val="6">male-EB-7</div>
-            <div class="swiper-slide" val="7">male-EB-8</div>
-            <div class="swiper-slide" val="8">male-EB-9</div>
-            <div class="swiper-slide" val="9">male-EB-10</div>
-            <div class="swiper-slide" val="10">male-EB-11</div>
-            <div class="swiper-slide" val="11">male-EB-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="eyeSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-E-1</div>
-            <div class="swiper-slide" val="1">male-E-2</div>
-            <div class="swiper-slide" val="2">male-E-3</div>
-            <div class="swiper-slide" val="3">male-E-4</div>
-            <div class="swiper-slide" val="4">male-E-5</div>
-            <div class="swiper-slide" val="5">male-E-6</div>
-            <div class="swiper-slide" val="6">male-E-7</div>
-            <div class="swiper-slide" val="7">male-E-8</div>
-            <div class="swiper-slide" val="8">male-E-9</div>
-            <div class="swiper-slide" val="9">male-E-10</div>
-            <div class="swiper-slide" val="10">male-E-11</div>
-            <div class="swiper-slide" val="11">male-E-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="mouthSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-M-1</div>
-            <div class="swiper-slide" val="1">male-M-2</div>
-            <div class="swiper-slide" val="2">male-M-3</div>
-            <div class="swiper-slide" val="3">male-M-4</div>
-            <div class="swiper-slide" val="4">male-M-5</div>
-            <div class="swiper-slide" val="5">male-M-6</div>
-            <div class="swiper-slide" val="6">male-M-7</div>
-            <div class="swiper-slide" val="7">male-M-8</div>
-            <div class="swiper-slide" val="8">male-M-9</div>
-            <div class="swiper-slide" val="9">male-M-10</div>
-            <div class="swiper-slide" val="10">male-M-11</div>
-            <div class="swiper-slide" val="11">male-M-12</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="backgroundSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-Background-1</div>
-            <div class="swiper-slide" val="1">male-Background-2</div>
-            <div class="swiper-slide" val="2">male-Background-3</div>
-            <div class="swiper-slide" val="3">male-Background-4</div>
-            <div class="swiper-slide" val="4">male-Background-5</div>
-            <div class="swiper-slide" val="5">male-Background-6</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="clothSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-cloth-1</div>
-            <div class="swiper-slide" val="1">male-cloth-2</div>
-            <div class="swiper-slide" val="2">male-cloth-3</div>
-            <div class="swiper-slide" val="3">male-cloth-4</div>
-            <div class="swiper-slide" val="4">male-cloth-5</div>
-            <div class="swiper-slide" val="5">male-cloth-6</div>
-          </div>
-        </div>
-      </div>
-      <div class="screen swiper-slide">
-        <div class="footSwiperType swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" val="0">male-footer-1</div>
-            <div class="swiper-slide" val="1">male-footer-2</div>
-            <div class="swiper-slide" val="2">male-footer-3</div>
-            <div class="swiper-slide" val="3">male-footer-4</div>
-            <div class="swiper-slide" val="4">male-footer-5</div>
-            <div class="swiper-slide" val="5">male-footer-6</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="arrow prevStep"></div>
-  <div class="arrow nextStep"></div>
-  <!-- aside -->
-  <div class="aside">
-    <div id="generate">
-      <button class="button">Generate Image</button>
-    </div>
-  </div>
-  <!-- end of aside -->
 </div>
 
 
