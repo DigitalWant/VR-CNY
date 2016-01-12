@@ -21,6 +21,7 @@ var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 //canvas body builder relate
 var canvas3, ctx3;
 var canvas4, ctx4;
+var canvas5;
 
 var oBody, oCloth, oBag, oShoes, oBackground;
 var bodyObject = [oBackground, oBody, oCloth, oBag, oShoes]
@@ -76,7 +77,12 @@ var app = {
   nextStep: $('.nextStep'),
   prevStep: $('.prevStep'),
   faceItem: $('.faceItem'),
-  bodyItem: $('.bodyItem'),
+  bodyChoice: $('.bodyChoice'),
+  bodyItem: $('.bodyItem').not('.ok'),
+  bodyItemConfirm: $('.bodyItem').filter('.ok'),
+  bodyItemHasBag:false,
+  bodyItemCancelBag:$('.elementSwiper').find('.cancelBag'),
+  bodyBagHint: $('.bagHint'),
   generate: $('#generate'),
   stepProgram: [{
     //step 0. game start
@@ -144,6 +150,7 @@ var app = {
       var elementSwiper;
       var elementIndex = 0;
       var elementonSlideChangeEnd = {
+          direction:'vertical',
           onSlideChangeEnd: function(swiper, event) {
             elementIndex = swiper.activeIndex;
           }
@@ -218,6 +225,7 @@ var app = {
       var elementSwiper;
       var elementIndex = 0;
       var elementonSlideInit = {
+        direction:'horizontal',
         onInit: function(swiper, event) {
           elementIndex = app.bodyItem.eq(0).attr('data-draw-squence');
         }
@@ -233,24 +241,40 @@ var app = {
         app.femaleFaceSwiperLayer.hide();
         elementSwiper = new Swiper(app.maleBodySwiperLayer,elementonSlideInit);
       }
+
+      if (app.bodyItemHasBag == true){
+        $(canvas5).show();
+        app.bodyBagHint.show();
+      } else {
+        $(canvas5).hide();
+        app.bodyBagHint.hide()
+      }
       //body action bar
       app.bodyItem.on('click', function(e) {
         e.preventDefault();
         $(this).addClass('active').siblings().removeClass('active');
+        $thisContainer.addClass('editMode');
         elementSwiper.slideTo($(this).attr('val'));
         elementIndex = $(this).attr('data-draw-squence');
       });
+      app.bodyItemConfirm.on('click',function(e){
+        e.preventDefault();
+        $thisContainer.removeClass('editMode');
+      });
+
       //body item element swiper
       for (var i = 0; i < bodyObject.length; i++) {
         var selector = '.' + gender + 'Body ' + bodyObject[i]['domEle'];
         if ($(selector).size() > 0) {
+          var elementItemSize = $(selector).find('.swiper-slide').size();
+
           bodyObject[i]['instance'] = new Swiper(selector, {
             onSlideChangeStart: function(swiper) {
               bodyObject[i]['iSpr'] = parseInt(swiper.activeIndex);
             },
             centeredSlides: false,
-            slidesPerView: 5,
-            direction: 'horizontal',
+            slidesPerView: elementItemSize,
+            direction: 'vertical',
             allowSwipeToPrev: false,
             allowSwipeToNext: false,
             onTap: function(swiper, event) {
@@ -259,6 +283,48 @@ var app = {
           });
         }
       }
+      //bag item
+      bodyObject[3]['instance'].on('onTap',function(swiper){
+        app.bodyItemHasBag = true;
+        $(canvas5).show();
+      });
+      app.bodyItemCancelBag.on('click',function(){
+        app.bodyItemHasBag = false;
+        $(canvas5).hide();
+      });
+
+      //bag info
+      app.bodyItemConfirm.on('click',function(){
+        if (app.bodyItemHasBag == true){
+          //console.log('yes')
+          app.bodyBagHint.show();
+        } else {
+          //console.log('no')
+          app.bodyBagHint.hide();
+          new WOW().init();
+        }
+      });
+
+      //bag hint
+      app.bodyBagHint.on('click',function(){
+
+      //console.log('bag info',  bodyObject[3]['iSpr']);
+
+        var selectBagHTML = bagInfo[bodyObject[3]['iSpr']]['html'];
+
+
+        $.magnificPopup.open({
+          mainClass:'bag-info-popup mfp-3d-unfold',
+          items: {
+            src: '<div>'+selectBagHTML+'</div>'
+          },
+          tError: '<a href="%url%">The content</a> could not be loaded.',
+          type: 'inline'
+        });
+
+
+      });
+
     }
   }, {
     //step4. put message on final result
@@ -271,160 +337,13 @@ var app = {
       app.faceItem.hide();
       app.bodyItem.hide();
       app.generate.show();
-
       app.gameStart.hide();
 
     }
   }]
 }
 
-function changeElement(elementCategory, elementIndex) {
-  console.log(elementCategory, elementIndex);
-}
 
-function sendResultToServer(vData) {
-  $('.scene .loading').show();
-  $.post(
-    website_url + 'accept_avatar.php', {
-      data: vData
-    },
-    function(aData) {
-
-      if (aData) {
-        $('.result').fadeOut(1000, function() {
-          var result = '<hr /><div class="container"><h2>Result is:</h2><img src="cache/result' + aData + '.jpg" /><button class="button download" onclick="window.open(\'cache/result' + aData + '.jpg\');">download result image</button>' +
-            '<button class="button" onclick="$(\'.send_email\').toggle();">Send by Email</button>' +
-            '<form method="post" action="email.php" class="send_email"><input name="file" value="' + aData + '" type="hidden" />' +
-            '<input class="text" name="name" value="" type="text" placeholder="Your Name" /><input class="text" name="email" value="" type="text" placeholder="Your Email" /><input class="button" type="submit" name="submit" /></form></div>';
-
-          $(this).html(result);
-          $(this).fadeIn(1000);
-          $('.scene .loading').hide();
-        });
-      }
-    }
-  );
-}
-
-function Head(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.headSwiperType';
-  this.putOn = ['ctx1', 'ctx3'];
-}
-
-function Fringe(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.fringeSwiperType';
-  this.putOn = ['ctx2', 'ctx4'];
-}
-
-function Eye(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.eyeSwiperType';
-  this.putOn = ['ctx1', 'ctx3'];
-}
-
-function Mouth(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.mouthSwiperType';
-  this.putOn = ['ctx1', 'ctx3'];
-}
-
-function Background(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.backgroundSwiperType';
-  this.putOn = ['ctx3'];
-
-};
-
-function Body(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.skip';
-  this.putOn = ['ctx3'];
-};
-
-function Cloth(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.clothSwiperType';
-  this.putOn = ['ctx3'];
-};
-
-function Bag(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.bagSwiperType';
-  this.putOn = ['ctx3'];
-
-}
-
-function Shoes(x, y, x2, y2, w, h, image) {
-  this.x = x;
-  this.y = y;
-  this.x2 = x2;
-  this.y2 = y2;
-  this.w = w;
-  this.h = h;
-  this.image = image;
-  this.iSpr = 0;
-  this.domEle = '.shoesSwiperType';
-  this.putOn = ['ctx3'];
-
-}
 
 function clear() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -473,6 +392,18 @@ function drawScene() {
     //body builder
     if (bodyObject[i].putOn[0] == 'ctx3') {
       ctx3.drawImage(
+        bodyObject[i].image,
+        bodyObject[i].x2 + bodyObject[i].iSpr * bodyObject[i].w,
+        bodyObject[i].y2,
+        bodyObject[i].w * 1,
+        bodyObject[i].h * 1,
+        bodyObject[i].x + bodyPosX_onBodybuild,
+        bodyObject[i].y + bodyPosY_onBodybuild,
+        bodyObject[i].w * bodyScaleW_onBodybuild,
+        bodyObject[i].h * bodyScaleH_onBodybuild);
+    }
+    if (bodyObject[i].putOn[0] == 'ctx5') {
+      ctx5.drawImage(
         bodyObject[i].image,
         bodyObject[i].x2 + bodyObject[i].iSpr * bodyObject[i].w,
         bodyObject[i].y2,
@@ -597,19 +528,10 @@ function assetsPrepare(gender, callback) {
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 1000);
+  timer = setInterval(drawScene, 100);
 }
 
 
-
-function checkPortrait() {
-
-  if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
-    $('body').removeClass('portraitPls');
-  } else {
-    $('body').addClass('portraitPls');
-  }
-}
 
 $(function() {
 
