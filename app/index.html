@@ -127,19 +127,19 @@
             <div class="headSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -148,19 +148,19 @@
             <div class="fringeSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -169,19 +169,19 @@
             <div class="eyeSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -190,19 +190,19 @@
             <div class="mouthSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -215,22 +215,22 @@
             <div class="headSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
                 <div class="swiper-slide" val="5">
-                  
+
                 </div>
               </div>
             </div>
@@ -239,19 +239,19 @@
             <div class="fringeSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -260,19 +260,19 @@
             <div class="eyeSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -281,19 +281,19 @@
             <div class="mouthSwiperType swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" val="0">
-                  
+
                 </div>
                 <div class="swiper-slide" val="1">
-                  
+
                 </div>
                 <div class="swiper-slide" val="2">
-                  
+
                 </div>
                 <div class="swiper-slide" val="3">
-                  
+
                 </div>
                 <div class="swiper-slide" val="4">
-                  
+
                 </div>
               </div>
             </div>
@@ -551,14 +551,19 @@
         </div>
       </div>
       <div class="bagHint wow fadeInDown">
-
       </div>
       <div class="arrow prevStep"></div>
       <div class="arrow nextStep"></div>
     </div>
-    <div class="scene msgBuild">
-      <canvas id="scene5" width="340" height="570"></canvas>
+    <div class="scene makeWish">
+      <div class="canvas-wrapper center-block">
+        <canvas  id="scene6" width="340" height="570"></canvas>
+      </div>
       <textarea id="msg"></textarea>
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+    </div>
+    <div class="scene contactInfo">
       <div class="loading">
         <div></div>
         <div></div>
@@ -566,9 +571,12 @@
         <div></div>
         <div></div>
       </div>
-      <div id="generate">
-        <button class="button">Generate Image</button>
+      <div>
+        <img src="" id="face_result" alt="" />
       </div>
+      <!-- <div id="generate">
+        <button class="button">Generate Image</button>
+      </div> -->
     </div>
   </div>
   <!-- end of main -->
@@ -607,10 +615,6 @@
   <!-- endbuild -->
 
   <!-- build:js scripts/main.js -->
-  <script src="scripts/element.js"></script>
-  <script src="scripts/bagInfo.js"></script>
-  <script src="scripts/sendResultToServer.js"></script>
-  <script src="scripts/checkPortrait.js"></script>
   <script src="scripts/main.js"></script>
   <!-- endbuild -->
 

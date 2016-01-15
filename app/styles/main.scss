@@ -250,7 +250,7 @@ body {
     background: #fbf9f5;
     color:#000;
   }
-  
+
   &.mfp-close-btn-in .mfp-close {
     color:#000;
   }
@@ -568,5 +568,20 @@ body {
   background-size: contain;
   .container {
     display: none;
+  }
+}
+
+.makeWish {
+  background-color: #fbf9f5;
+  .canvas-wrapper {
+    width:225px;
+    height: 377px;
+    position: relative;
+    padding-top: 30px;
+  }
+  #scene6 {
+    width:225px;
+    height: 377px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 }

@@ -1,11 +1,166 @@
-/**
- * Face Builder v1.0.4
- * http://codecanyon.net/user/AramisGC
- * http://www.script-tutorials.com/
- *
- * Copyright (c) 2013-2014, Andrey Prikaznov
- * All rights reserved.
- */
+function Head(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.headSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
+}
+
+function Fringe(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.fringeSwiperType';
+  this.putOn = ['ctx2', 'ctx4'];
+}
+
+function Eye(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.eyeSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
+}
+
+function Mouth(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.mouthSwiperType';
+  this.putOn = ['ctx1', 'ctx3'];
+}
+
+function Background(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.backgroundSwiperType';
+  this.putOn = ['ctx3'];
+};
+
+function Body(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.skip';
+  this.putOn = ['ctx3'];
+};
+
+function Cloth(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.clothSwiperType';
+  this.putOn = ['ctx3'];
+
+};
+
+function Bag(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.bagSwiperType';
+  this.putOn = ['ctx5'];
+}
+
+function Shoes(x, y, x2, y2, w, h, image) {
+  this.x = x;
+  this.y = y;
+  this.x2 = x2;
+  this.y2 = y2;
+  this.w = w;
+  this.h = h;
+  this.image = image;
+  this.iSpr = 0;
+  this.domEle = '.shoesSwiperType';
+  this.putOn = ['ctx3'];
+
+}
+
+function checkPortrait() {
+  if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
+    $('body').removeClass('portraitPls');
+  } else {
+    $('body').addClass('portraitPls');
+  }
+}
+
+
+var bagInfo = [{
+  title: "demo Title 1",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO !!!</p> <img src='../images/promo/brand1.png' /> </div>"
+}, {
+  title: "demo Title 2",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO2 !!!</p></div>"
+}, {
+  title: "demo Title 3",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO3 !!!</p></div>"
+}, {
+  title: "demo Title 4",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO4 !!!</p></div>"
+}, {
+  title: "demo Title 5",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO5 !!!</p></div>"
+}, {
+  title: "demo Title 6",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO6 !!!</p></div>"
+}, {
+  title: "demo Title 7",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO !!!</p></div>"
+}, {
+  title: "demo Title 8",
+  content:"bala bala bala...",
+  html:"<div class='pale-popup mfp-with-anim text-center'><p>HELLO !!!</p></div>"
+}]
+
+
 var website_url = '/';
 
 //get basic parameter from url
@@ -18,13 +173,16 @@ var oHead, oFringe, oEye, oMouth;
 var faceObject = [oHead, oFringe, oEye, oMouth];
 var oColors, oColorEyebrow, oColorEye, oColorTop, oColorBack;
 
-//canvas body builder relate
+//canvas body builder relate 3-face, 4-boby, 5-bag
 var canvas3, ctx3;
 var canvas4, ctx4;
-var canvas5;
+var canvas5, ctx5;
+
+var canvas6, ctx6;
 
 var oBody, oCloth, oBag, oShoes, oBackground;
 var bodyObject = [oBackground, oBody, oCloth, oBag, oShoes]
+
 
 //adjust head on facebuild
 var faceCanvasWidth = 340;
@@ -37,7 +195,7 @@ var headPosY_onFacebuild_onIphone4 = 90;
 
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
-var bodyCanvasHeight = 477;
+var bodyCanvasHeight = 570;
 var headPosX_onBodybuild = 160 - 30;
 var headPosY_onBodybuild = 45;
 var headScaleW_onBodybuild = 0.26;
@@ -48,6 +206,15 @@ var bodyPosX_onBodybuild = 0;
 var bodyPosY_onBodybuild = 0;
 var bodyScaleW_onBodybuild = 1;
 var bodyScaleH_onBodybuild = 1;
+
+//make wish
+var headScaleW_onMakeWishbuild = 1;
+var headScaleH_onMakeWishbuild = 1;
+var bodyScaleW_onMakeWishbuild = 1;
+var bodyScaleH_onMakeWishbuild = 1;
+
+
+
 
 var timer;
 var loader;
@@ -328,18 +495,25 @@ var app = {
     }
   }, {
     //step4. put message on final result
-    container: $('.msgBuild'),
+    container: $('.makeWish'),
     stepFunction: function() {
       app.swiperLayer.hide();
       this.container.show().siblings().hide();
 
       //Btn control
-      app.faceItem.hide();
-      app.bodyItem.hide();
-      app.generate.show();
-      app.gameStart.hide();
+
 
     }
+  },{
+    //step5. leave contact info and preview
+    container: $('.contactInfo'),
+    stepFunction: function() {
+      app.swiperLayer.hide();
+      this.container.show().siblings().hide();
+      //Btn control
+      exportResult()}
+
+
   }]
 }
 
@@ -386,8 +560,8 @@ function drawScene() {
   }
 
   for (var i = 0; i < bodyObject.length; i++) {
-    ctx4.drawImage(canvas, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasWidth * headScaleH_onBodybuild);
-    ctx4.drawImage(canvas2, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasWidth * headScaleH_onBodybuild);
+    ctx4.drawImage(canvas, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+    ctx4.drawImage(canvas2, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
 
     //body builder
     if (bodyObject[i].putOn[0] == 'ctx3') {
@@ -416,34 +590,60 @@ function drawScene() {
     }
   }
 
-  // ctx3+ctx4 clone from ctx3
-  //ctx4.drawImage(canvas3, 0, 0);
 
-  // ctx 5
-  //userMsg.text = $('#msg').val();
-  //userMsg.context = ctx4;
-  //ctx4.font = userMsg.font;
-  //ctx4.fillStyle = userMsg.fillStyle;
-  //wrapText(userMsg.context, userMsg.text, userMsg.x, userMsg.y, userMsg.maxWidth, userMsg.lineHeight);
+  //ctx6 is final result
+  ctx6.drawImage(canvas3, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
+  ctx6.drawImage(canvas4, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
+  ctx6.drawImage(canvas5, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
+
+  //put wish on ctx6
+  userMsg.text = $('#msg').val();
+  userMsg.context = ctx6;
+  ctx6.font = userMsg.font;
+  ctx6.fillStyle = userMsg.fillStyle;
+  wrapText(userMsg.context, userMsg.text, userMsg.x, userMsg.y, userMsg.maxWidth, userMsg.lineHeight);
 }
 
 function exportResult() {
   var temp_ctx, temp_canvas;
   temp_canvas = document.createElement('canvas');
   temp_ctx = temp_canvas.getContext('2d');
-  temp_canvas.width = 330;
-  temp_canvas.height = 330;
-  var zdata = ctx4.getImageData(5, 5, 330, 477);
-  var data = zdata.data;
+  temp_canvas.width = bodyCanvasWidth;
+  temp_canvas.height = bodyCanvasHeight;
+  var zdata = ctx6.getImageData(0, 0, bodyCanvasWidth, bodyCanvasHeight);
+  //var data = zdata.data;
+  //temp_ctx.putImageData(zdata, 0, 0);
+  //zdata2 = ctx4.getImageData(5, 5, 330, 477);
+
   temp_ctx.putImageData(zdata, 0, 0);
-  zdata2 = ctx4.getImageData(5, 5, 330, 477);
-
-
-  temp_ctx.putImageData(zdata2, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
   $('#face_result').attr('src', vData);
   sendResultToServer(vData);
+};
+function sendResultToServer(vData) {
+  $('.scene .loading').show();
+  $.post(
+    website_url + 'accept_avatar.php', {
+      data: vData
+    },
+    function(aData) {
+
+      if (aData) {
+        $('.result').fadeOut(1000, function() {
+          var result = '<hr /><div class="container"><h2>Result is:</h2><img src="cache/result' + aData + '.jpg" /><button class="button download" onclick="window.open(\'cache/result' + aData + '.jpg\');">download result image</button>' +
+            '<button class="button" onclick="$(\'.send_email\').toggle();">Send by Email</button>' +
+            '<form method="post" action="email.php" class="send_email"><input name="file" value="' + aData + '" type="hidden" />' +
+            '<input class="text" name="name" value="" type="text" placeholder="Your Name" /><input class="text" name="email" value="" type="text" placeholder="Your Email" /><input class="button" type="submit" name="submit" /></form></div>';
+
+          $(this).html(result);
+          $(this).fadeIn(1000);
+          $('.scene .loading').hide();
+        });
+      }
+    }
+  );
 }
+
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
   var words = text.split('');
@@ -463,7 +663,7 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     }
   }
   context.fillText(line, x, y);
-}
+};
 
 function assetsPrepare(gender, callback) {
 
@@ -482,6 +682,9 @@ function assetsPrepare(gender, callback) {
   ctx4 = canvas4.getContext('2d');
   canvas5 = document.getElementById('scene5');
   ctx5 = canvas5.getContext('2d');
+  canvas6 = document.getElementById('scene6');
+  ctx6 = canvas6.getContext('2d');
+
 
   //face Part
   var oEyesImage = new Image();
@@ -528,8 +731,8 @@ function assetsPrepare(gender, callback) {
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 100);
-}
+  timer = setInterval(drawScene, 1000);
+};
 
 
 
