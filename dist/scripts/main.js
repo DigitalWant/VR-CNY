@@ -196,10 +196,10 @@ var headPosY_onFacebuild_onIphone4 = 90;
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
 var bodyCanvasHeight = 570;
-var headPosX_onBodybuild = 160 - 30;
-var headPosY_onBodybuild = 45;
+var headPosX_onBodybuild = 160 - 28;
+var headPosY_onBodybuild = 25;
 var headScaleW_onBodybuild = 0.26;
-var headScaleH_onBodybuild = 0.26;
+var headScaleH_onBodybuild = 0.45;
 
 //adjust body on bodybuild
 var bodyPosX_onBodybuild = 0;
@@ -560,8 +560,8 @@ function drawScene() {
   }
 
   for (var i = 0; i < bodyObject.length; i++) {
-    ctx4.drawImage(canvas, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
-    ctx4.drawImage(canvas2, 0, 0, faceCanvasWidth, faceCanvasWidth, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+    ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+    ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
 
     //body builder
     if (bodyObject[i].putOn[0] == 'ctx3') {
@@ -576,6 +576,7 @@ function drawScene() {
         bodyObject[i].w * bodyScaleW_onBodybuild,
         bodyObject[i].h * bodyScaleH_onBodybuild);
     }
+    //bag layer
     if (bodyObject[i].putOn[0] == 'ctx5') {
       ctx5.drawImage(
         bodyObject[i].image,
@@ -595,6 +596,7 @@ function drawScene() {
   ctx6.drawImage(canvas3, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
   ctx6.drawImage(canvas4, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
   ctx6.drawImage(canvas5, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
+  //console.log(bodyCanvasHeight);
 
   //put wish on ctx6
   userMsg.text = $('#msg').val();
@@ -602,6 +604,8 @@ function drawScene() {
   ctx6.font = userMsg.font;
   ctx6.fillStyle = userMsg.fillStyle;
   wrapText(userMsg.context, userMsg.text, userMsg.x, userMsg.y, userMsg.maxWidth, userMsg.lineHeight);
+
+
 }
 
 function exportResult() {
@@ -618,7 +622,7 @@ function exportResult() {
   temp_ctx.putImageData(zdata, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
   $('#face_result').attr('src', vData);
-  sendResultToServer(vData);
+  //sendResultToServer(vData);
 };
 function sendResultToServer(vData) {
   $('.scene .loading').show();
@@ -725,7 +729,7 @@ function assetsPrepare(gender, callback) {
   faceObject[3] = new Mouth(0, 0, 0, 0, faceCanvasWidth, faceCanvasHeight, oMouthsImage);
 
   //body part object
-  bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasWidth, oBackgroundImage);
+  bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBackgroundImage);
   bodyObject[1] = new Body(0, 20, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
   bodyObject[2] = new Cloth(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oClothImage);
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
