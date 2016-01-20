@@ -186,7 +186,7 @@ var bodyObject = [oBackground, oBody, oCloth, oBag, oShoes]
 
 //adjust head on facebuild
 var faceCanvasWidth = 340;
-var faceCanvasHeight = 340;
+var faceCanvasHeight = 570;
 var headPosX_onFacebuild = 0;
 var headPosY_onFacebuild = 10;
 var headScaleW_onFacebuild = 1;
@@ -197,9 +197,9 @@ var headPosY_onFacebuild_onIphone4 = 90;
 var bodyCanvasWidth = 340;
 var bodyCanvasHeight = 570;
 var headPosX_onBodybuild = 160 - 28;
-var headPosY_onBodybuild = 25;
+var headPosY_onBodybuild = 40;
 var headScaleW_onBodybuild = 0.26;
-var headScaleH_onBodybuild = 0.45;
+var headScaleH_onBodybuild = 0.30;
 
 //adjust body on bodybuild
 var bodyPosX_onBodybuild = 0;
