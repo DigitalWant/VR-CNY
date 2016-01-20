@@ -329,31 +329,29 @@ body {
 }
 
 .elementSwiper.femaleFace,
-.elementSwiper.maleFace {
+.elementSwiper.maleFace,
+.elementSwiper.femaleBody,
+.elementSwiper.maleBody
+ {
   position: fixed;
   width: 100%;
   height: 80px;
   left: 0;
   bottom: 80px;
-  z-index: 9999;
+  z-index: 99999;
 
   .swiper-container {
     height: 100%;
   }
-  .swiper-slide .swiper-slide {
-    width: 100%;
-    height: 80px;
-    font-size: 1em;
-    text-align: center;
-    color: #ff0000;
-  }
+
 }
+
 .bodyChoice{
   visibility: hidden;
-  position: fixed;
-  z-index: 9999;
+  position: absolute;
+  z-index: 99999;
   width:320px;
-  height:100%;
+  height:570px;
   top:0px;
   left:0px;
   background: transparent;
@@ -361,10 +359,24 @@ body {
   background-image: url(../images/waterColorBrush.png);
   background-size: contain;
   background-position: right top;
-  .elementSwiper {
+
+  .elementSwiper.femaleBody,
+  .elementSwiper.maleBody {
+
     width:50px;
-    margin-right: 15px;
+    height: 420px;
+    left: 250px;
+
+        top:0px;
+
   }
+  .swiper-slide {
+    background-color: #ff0000;
+    width:50px;
+    //height: 50px;
+
+  }
+  .cancelBag {position:absolute; top:0px;left:50%;z-index: 999;}
 }
 
 .editMode{
@@ -585,15 +597,17 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 }
-.headSwiperType {
-  background: transparent url(../images/data/female/face_thumb.png) no-repeat scroll left top;
-}
-.fringeSwiperType {
-  background: transparent url(../images/data/female/fringes_thumb.png) no-repeat scroll left top;
-}
-.eyeSwiperType {
-  background: transparent url(../images/data/female/eye_thumb.png) no-repeat scroll left top;
-}
-.mouthSwiperType {
-  background: transparent url(../images/data/female/mouth_thumb.png) no-repeat scroll left top;
+.femaleFace {
+  .headSwiperType {
+    background: transparent url(../images/data/female/face_thumb.png) no-repeat scroll left top;
+  }
+  .fringeSwiperType {
+    background: transparent url(../images/data/female/fringes_thumb.png) no-repeat scroll left top;
+  }
+  .eyeSwiperType {
+    background: transparent url(../images/data/female/eye_thumb.png) no-repeat scroll left top;
+  }
+  .mouthSwiperType {
+    background: transparent url(../images/data/female/mouth_thumb.png) no-repeat scroll left top;
+  }
 }

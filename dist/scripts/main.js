@@ -199,7 +199,7 @@ var bodyCanvasHeight = 570;
 var headPosX_onBodybuild = 160 - 28;
 var headPosY_onBodybuild = 40;
 var headScaleW_onBodybuild = 0.26;
-var headScaleH_onBodybuild = 0.30;
+var headScaleH_onBodybuild = 0.28;
 
 //adjust body on bodybuild
 var bodyPosX_onBodybuild = 0;
@@ -543,7 +543,7 @@ function drawScene() {
         faceObject[i].x + headPosX_onFacebuild,
         faceObject[i].y + headPosY_onFacebuild,
         faceObject[i].w * headScaleW_onFacebuild,
-        faceObject[i].h * headScaleW_onFacebuild);
+        faceObject[i].h * headScaleH_onFacebuild);
     }
     if (faceObject[i].putOn[0] == 'ctx2') {
       ctx2.drawImage(
@@ -723,10 +723,10 @@ function assetsPrepare(gender, callback) {
 
 
   //face part object
-  faceObject[0] = new Head(0, 0, 0, 0, faceCanvasWidth, faceCanvasHeight, oFaceImage);
-  faceObject[1] = new Fringe(0, 0, 0, 0, faceCanvasWidth, faceCanvasHeight, oFringeImage);
-  faceObject[2] = new Eye(0, 0, 0, 0, faceCanvasWidth, faceCanvasHeight, oEyesImage);
-  faceObject[3] = new Mouth(0, 0, 0, 0, faceCanvasWidth, faceCanvasHeight, oMouthsImage);
+  faceObject[0] = new Head(0, 20, 0, 0, faceCanvasWidth, 200, oFaceImage);
+  faceObject[1] = new Fringe(0, -60, 0, 0, faceCanvasWidth, 500, oFringeImage);
+  faceObject[2] = new Eye(0, 20, 0, 0, faceCanvasWidth, 200, oEyesImage);
+  faceObject[3] = new Mouth(0, 20, 0, 0, faceCanvasWidth, 200, oMouthsImage);
 
   //body part object
   bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBackgroundImage);
