@@ -532,6 +532,8 @@ function clear() {
   ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
   ctx5.clearRect(0, 0, ctx5.canvas.width, ctx5.canvas.height);
 }
+var img = new Image();
+var img2 = new Image();
 
 function drawScene() {
   clear();
@@ -569,30 +571,40 @@ function drawScene() {
 
 
 
-    /// step 1
-    var oc = document.createElement('canvas'),
-        octx = oc.getContext('2d'),
-        img = new Image();
-    oc.width = 320;
-    oc.height = 570;
-
-    octx.drawImage(canvas, 0,0, oc.width,oc.height);
-    octx.drawImage(canvas2, 0,0, oc.width,oc.height);
-
-    var zdata = octx.getImageData(0, 0, 320*0.5, 570*0.5);
-
-    octx.putImageData(zdata, 0, 0);
 
 
-    /// step 2
-    // octx.drawImage(oc,0,0,oc.width * 0.5,oc.height * 0.5);
 
-    // canvas.width=400;
-    // canvas.height=150;
-    ctx4.drawImage(oc,0,0,oc.width * 0.5, oc.height * 0.5,
-                     0,0,canvas.width,canvas.height);
+      /// step 1
+      var temp_canvas = document.createElement('canvas');
+      var temp_ctx = temp_canvas.getContext('2d');
+      var temp_canvas2 = document.createElement('canvas');
+      var temp_ctx2 = temp_canvas2.getContext('2d');
+      var temp_canvas3 = document.createElement('canvas');
+      var temp_ctx3 = temp_canvas2.getContext('2d');
 
+      //var img = new Image();
+      temp_canvas.width = 320;
+      temp_canvas.height = 570;
+      temp_canvas2.width = 320*0.5;
+      temp_canvas2.height = 570*0.5;
+      temp_canvas3.width = 320*0.5*0.5;
+      temp_canvas3.height = 570*0.5*0.5;
 
+      //// logic 1
+      temp_ctx.drawImage(canvas, 0,0, temp_canvas.width,temp_canvas.height,0,0,temp_canvas2.width ,temp_canvas2.height);
+      temp_ctx.drawImage(canvas2, 0,0, temp_canvas.width,temp_canvas.height,0,0,temp_canvas2.width ,temp_canvas2.height );
+
+      // var imgData = temp_ctx.getImageData(0, 0, temp_canvas.width, temp_canvas.height);
+      // var imgUrlData = temp_canvas.toDataURL("image/png", 1.0);
+      // img.src = imgUrlData;
+      temp_ctx2.drawImage(temp_canvas,0,0, temp_canvas2.width, temp_canvas2.height,0,0,temp_canvas3.width ,temp_canvas3.height);
+      ctx4.drawImage(temp_canvas2,0,0, temp_canvas3.width, temp_canvas3.height,headPosX_onBodybuild,headPosY_onBodybuild,temp_canvas3.width ,temp_canvas3.height);
+
+      // var imgUrlData2 = temp_canvas2.toDataURL("image/png",1.0);
+      // img2.src = imgUrlData2;
+      // $("#face_result").attr('src',imgUrlData2);
+
+    //
     // ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
     // ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
 
@@ -771,7 +783,7 @@ function assetsPrepare(gender, callback) {
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 3000);
+  timer = setInterval(drawScene, 100);
 };
 
 

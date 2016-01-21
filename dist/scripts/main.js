@@ -196,11 +196,12 @@ var headPosY_onFacebuild_onIphone4 = 90;
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
 var bodyCanvasHeight = 570;
-var headPosX_onBodybuild = 160 - 28;
-var headPosY_onBodybuild = 40;
-var headScaleW_onBodybuild = 0.26;
-var headScaleH_onBodybuild = 0.28;
-
+var headPosX_onBodybuild = 125;
+var headPosY_onBodybuild = 70;
+// var headScaleW_onBodybuild = 0.24;
+// var headScaleH_onBodybuild = 0.24;
+var headScaleW_onBodybuild = 0.24;
+var headScaleH_onBodybuild = 0.24;
 //adjust body on bodybuild
 var bodyPosX_onBodybuild = 0;
 var bodyPosY_onBodybuild = 0;
@@ -531,6 +532,8 @@ function clear() {
   ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
   ctx5.clearRect(0, 0, ctx5.canvas.width, ctx5.canvas.height);
 }
+var img = new Image();
+var img2 = new Image();
 
 function drawScene() {
   clear();
@@ -565,8 +568,46 @@ function drawScene() {
   }
 
   for (var i = 0; i < bodyObject.length; i++) {
-    ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
-    ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+
+
+
+
+
+
+      /// step 1
+      var temp_canvas = document.createElement('canvas');
+      var temp_ctx = temp_canvas.getContext('2d');
+      var temp_canvas2 = document.createElement('canvas');
+      var temp_ctx2 = temp_canvas2.getContext('2d');
+      var temp_canvas3 = document.createElement('canvas');
+      var temp_ctx3 = temp_canvas2.getContext('2d');
+
+      //var img = new Image();
+      temp_canvas.width = 320;
+      temp_canvas.height = 570;
+      temp_canvas2.width = 320*0.5;
+      temp_canvas2.height = 570*0.5;
+      temp_canvas3.width = 320*0.5*0.5;
+      temp_canvas3.height = 570*0.5*0.5;
+
+      //// logic 1
+      temp_ctx.drawImage(canvas, 0,0, temp_canvas.width,temp_canvas.height,0,0,temp_canvas2.width ,temp_canvas2.height);
+      temp_ctx.drawImage(canvas2, 0,0, temp_canvas.width,temp_canvas.height,0,0,temp_canvas2.width ,temp_canvas2.height );
+
+      // var imgData = temp_ctx.getImageData(0, 0, temp_canvas.width, temp_canvas.height);
+      // var imgUrlData = temp_canvas.toDataURL("image/png", 1.0);
+      // img.src = imgUrlData;
+      temp_ctx2.drawImage(temp_canvas,0,0, temp_canvas2.width, temp_canvas2.height,0,0,temp_canvas3.width ,temp_canvas3.height);
+      ctx4.drawImage(temp_canvas2,0,0, temp_canvas3.width, temp_canvas3.height,headPosX_onBodybuild,headPosY_onBodybuild,temp_canvas3.width ,temp_canvas3.height);
+
+      // var imgUrlData2 = temp_canvas2.toDataURL("image/png",1.0);
+      // img2.src = imgUrlData2;
+      // $("#face_result").attr('src',imgUrlData2);
+
+    //
+    // ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+    // ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+
 
     //body builder
     if (bodyObject[i].putOn[0] == 'ctx3') {
@@ -620,13 +661,15 @@ function exportResult() {
   temp_canvas.width = bodyCanvasWidth;
   temp_canvas.height = bodyCanvasHeight;
   var zdata = ctx6.getImageData(0, 0, bodyCanvasWidth, bodyCanvasHeight);
+
   //var data = zdata.data;
   //temp_ctx.putImageData(zdata, 0, 0);
   //zdata2 = ctx4.getImageData(5, 5, 330, 477);
 
+
   temp_ctx.putImageData(zdata, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
-  $('#face_result').attr('src', vData);
+  $('#body_result').attr('src', vData);
   //sendResultToServer(vData);
 };
 function sendResultToServer(vData) {
@@ -735,12 +778,12 @@ function assetsPrepare(gender, callback) {
 
   //body part object
   bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBackgroundImage);
-  bodyObject[1] = new Body(0, 20, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
+  bodyObject[1] = new Body(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
   bodyObject[2] = new Cloth(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oClothImage);
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 1000);
+  timer = setInterval(drawScene, 100);
 };
 
 
