@@ -149,6 +149,7 @@
       -ms-transform: rotate($degrees); // IE9 only
        -o-transform: rotate($degrees);
           transform: rotate($degrees);
+          display: none;
 }
 @mixin rotateX($degrees) {
   -webkit-transform: rotateX($degrees);
