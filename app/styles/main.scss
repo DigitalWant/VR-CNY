@@ -637,3 +637,12 @@ body {
     }
   }
 }
+
+#face_result {
+  position: absolute;
+  left:160px;
+  top:70px;
+  z-index: 99999;
+  // width: 25%;
+  // height: 25%;
+}

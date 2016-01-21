@@ -196,11 +196,12 @@ var headPosY_onFacebuild_onIphone4 = 90;
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
 var bodyCanvasHeight = 570;
-var headPosX_onBodybuild = 160 - 28;
-var headPosY_onBodybuild = 40;
-var headScaleW_onBodybuild = 0.26;
-var headScaleH_onBodybuild = 0.28;
-
+var headPosX_onBodybuild = 125;
+var headPosY_onBodybuild = 70;
+// var headScaleW_onBodybuild = 0.24;
+// var headScaleH_onBodybuild = 0.24;
+var headScaleW_onBodybuild = 0.24;
+var headScaleH_onBodybuild = 0.24;
 //adjust body on bodybuild
 var bodyPosX_onBodybuild = 0;
 var bodyPosY_onBodybuild = 0;
@@ -234,6 +235,7 @@ var assetsItems = [];
 var iSel = 0;
 var app = {
   step: 0,
+  scene:$('.scene'),
   swiperLayer: $('.elementSwiper'),
   femaleFaceSwiperLayer: $('.elementSwiper.femaleFace'),
   maleFaceSwiperLayer: $('.elementSwiper.maleFace'),
@@ -446,6 +448,10 @@ var app = {
             allowSwipeToNext: false,
             onTap: function(swiper, event) {
               bodyObject[elementIndex]['iSpr'] = parseInt(swiper.clickedIndex);
+              bodyObject[elementIndex]['instance'].activeIndex=3
+              bodyObject[elementIndex]['instance'].updateProgress();
+              console.log(bodyObject[elementIndex]['instance'].activeIndex);
+
             }
           });
         }
@@ -560,8 +566,36 @@ function drawScene() {
   }
 
   for (var i = 0; i < bodyObject.length; i++) {
-    ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
-    ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+
+
+
+    /// step 1
+    var oc = document.createElement('canvas'),
+        octx = oc.getContext('2d'),
+        img = new Image();
+    oc.width = 320;
+    oc.height = 570;
+
+    octx.drawImage(canvas, 0,0, oc.width,oc.height);
+    octx.drawImage(canvas2, 0,0, oc.width,oc.height);
+
+    var zdata = octx.getImageData(0, 0, 320*0.5, 570*0.5);
+
+    octx.putImageData(zdata, 0, 0);
+
+
+    /// step 2
+    // octx.drawImage(oc,0,0,oc.width * 0.5,oc.height * 0.5);
+
+    // canvas.width=400;
+    // canvas.height=150;
+    ctx4.drawImage(oc,0,0,oc.width * 0.5, oc.height * 0.5,
+                     0,0,canvas.width,canvas.height);
+
+
+    // ctx4.drawImage(canvas, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+    // ctx4.drawImage(canvas2, 0, 0, bodyCanvasWidth, bodyCanvasHeight, headPosX_onBodybuild, headPosY_onBodybuild, faceCanvasWidth * headScaleW_onBodybuild, faceCanvasHeight * headScaleH_onBodybuild);
+
 
     //body builder
     if (bodyObject[i].putOn[0] == 'ctx3') {
@@ -615,13 +649,15 @@ function exportResult() {
   temp_canvas.width = bodyCanvasWidth;
   temp_canvas.height = bodyCanvasHeight;
   var zdata = ctx6.getImageData(0, 0, bodyCanvasWidth, bodyCanvasHeight);
+
   //var data = zdata.data;
   //temp_ctx.putImageData(zdata, 0, 0);
   //zdata2 = ctx4.getImageData(5, 5, 330, 477);
 
+
   temp_ctx.putImageData(zdata, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
-  $('#face_result').attr('src', vData);
+  $('#body_result').attr('src', vData);
   //sendResultToServer(vData);
 };
 function sendResultToServer(vData) {
@@ -730,12 +766,12 @@ function assetsPrepare(gender, callback) {
 
   //body part object
   bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBackgroundImage);
-  bodyObject[1] = new Body(0, 20, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
+  bodyObject[1] = new Body(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
   bodyObject[2] = new Cloth(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oClothImage);
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 1000);
+  timer = setInterval(drawScene, 3000);
 };
 
 
@@ -760,7 +796,13 @@ $(function() {
   app.prevStep.on('click', function() {
     if (app.step > 0 && $(this).hasClass('disable') == false) {
       app.step = app.step - 1;
-      app['stepProgram'][app.step]['stepFunction']();
+      //app['stepProgram'][app.step]['stepFunction']();
+
+      //this.container.show().siblings().hide();
+      //console.log(app.scene);
+      app.scene.eq(app.step).show().siblings().hide();
+
+
     }
   });
 

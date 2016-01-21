@@ -234,6 +234,7 @@ var assetsItems = [];
 var iSel = 0;
 var app = {
   step: 0,
+  scene:$('.scene'),
   swiperLayer: $('.elementSwiper'),
   femaleFaceSwiperLayer: $('.elementSwiper.femaleFace'),
   maleFaceSwiperLayer: $('.elementSwiper.maleFace'),
@@ -446,6 +447,10 @@ var app = {
             allowSwipeToNext: false,
             onTap: function(swiper, event) {
               bodyObject[elementIndex]['iSpr'] = parseInt(swiper.clickedIndex);
+              bodyObject[elementIndex]['instance'].activeIndex=3
+              bodyObject[elementIndex]['instance'].updateProgress();
+              console.log(bodyObject[elementIndex]['instance'].activeIndex);
+
             }
           });
         }
@@ -760,7 +765,13 @@ $(function() {
   app.prevStep.on('click', function() {
     if (app.step > 0 && $(this).hasClass('disable') == false) {
       app.step = app.step - 1;
-      app['stepProgram'][app.step]['stepFunction']();
+      //app['stepProgram'][app.step]['stepFunction']();
+
+      //this.container.show().siblings().hide();
+      //console.log(app.scene);
+      app.scene.eq(app.step).show().siblings().hide();
+
+
     }
   });
 
