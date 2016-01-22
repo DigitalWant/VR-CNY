@@ -267,7 +267,7 @@ body {
   display: block;
   .bar {
     position: absolute;
-    z-index: 9999999;
+    z-index: 9999;
     bottom: 0;
     width: 100%;
   }
@@ -280,10 +280,10 @@ body {
   }
   #scene2,
   #scene4 {
-    z-index: 999;
+    z-index: 100;
   }
   #scene5 {
-    z-index: 9999;
+    z-index: 101;
   }
 }
 .page-view {
@@ -331,9 +331,9 @@ body {
   position: fixed;
   width: 100%;
   height: 80px;
-  left: 0;
+  left: auto;
   bottom: 80px;
-  z-index: 99999;
+  z-index: 9997;
   .swiper-container {
     height: 100%;
   }
@@ -343,6 +343,9 @@ body {
   background-image: url(../images/bg-pale.jpg);
   background-position: center;
   background-size: cover;
+  .arrow{
+    top:50%;
+  }
   .title {
     position: absolute;
     padding-top: 150px;
@@ -439,6 +442,7 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
   }
+
   .bodyOption {
     .cloth {
       background-position: -200px 0px;
@@ -454,7 +458,7 @@ body {
     }
     .ok {
       display: none;
-        background-position: -400px 0px;
+      background-position: -400px 0px;
     }
   }
   .bodyOption.female{
@@ -462,6 +466,31 @@ body {
   }
   .bodyOption.male{
     a {background-image: url(../images/data/male/category.png)};
+  }
+  &.editMode {
+    .arrow {
+      display: none!important;
+    }
+    .bodyChoice {
+      visibility: visible;
+    }
+    .cancelBag {
+
+    }
+    .ba_tabs.body {
+      width: 245px;
+
+    }
+    .bodyOption {
+      .ok {
+        display:block!important;
+        position: absolute;
+        bottom:5px;
+        right:5px;
+        z-index: 99999;
+      }
+    }
+
   }
 }
 .ba_tabs.face,
@@ -503,8 +532,8 @@ body {
 }
 .arrow {
   position: absolute;
-  z-index: 99999;
-  top: 50%;
+  z-index: 10000;
+  bottom: 1%;
   left: 2%;
   width: 28px;
   height: 56px;
@@ -531,12 +560,13 @@ body {
   ::-moz-placeholder { color:#888888;font-size: 12px; } /* firefox 19+ */
   :-ms-input-placeholder { color:#888888;font-size: 12px; } /* ie */
   input:-moz-placeholder { color:#888888;font-size: 12px; }
+
 }
 
 #msg {
   position: absolute;
   left: 50%;
-  top: 360px;
+  top: 400px;
   width: 205px;
   margin-left: -102px;
   background: transparent;
@@ -557,23 +587,84 @@ body {
   background-color: #fbf9f5;
   .canvas-wrapper,.img-wrapper {
     width: 225px;
-    height: 377px;
+    height: 400px;
     position: relative;
-    padding-top: 30px;
+        margin-top: 45px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   }
   #scene6, #body_result, #share_result {
     width: 225px;
     height: 377px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .arrow{
+    top:40%;
   }
 }
+.share .share-text{
+  width: 250px;
+  padding-top: 20px;
+  .btn-default {
+    background-color: transparent;
+    border-radius: 0px;
+    color:#000;
+    width: 75px;
+    margin-left: 10px;
+    border:1px solid #000;
+    line-height: 1.4em;
+        margin-top: 8px;
+    &:focus {
+      color:#000;
+    outline:none;
+}
+  }
+  p{
+    padding-top: 5px;
+    font-size: 12px;
+    line-height: 13px;
+  }
+}
+
 .elementSwiper.femaleFace,.elementSwiper.maleFace {
   width:260px;
   height: 70px;
   left:50%;
   margin-left: -130px;
 }
+.contactInfo {
+  .form-group {
 
+    float: left;
+    width:50%;
+
+    label {
+      float:left;
+          margin-top: 15px;
+          color: #4A4A4A;
+          font-weight: normal;
+    }
+    .form-control {
+      float: left;
+      width:66px;
+      box-shadow:none;
+      border:none;
+      border-bottom: 1px solid #c3c3c3;
+      border-radius: 0px;
+      padding:0px 0px;
+      line-height: 1.1em;
+      height: 1.1em;
+      margin-top: 15px;
+    }
+
+  }
+  .fieldset  {
+    width: 210px;
+    position: absolute;
+    left:55px;
+    top:398px;
+  }
+}
 
 .femaleFace{
   .headSwiperType {
@@ -640,9 +731,9 @@ body {
 .bodyChoice {
   visibility: hidden;
   position: absolute;
-  z-index: 99999;
-  width: 320px;
-  height: 570px;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   background: transparent;
@@ -654,8 +745,17 @@ body {
   .elementSwiper.maleBody {
     width: 50px;
     height: 480px;
-    left: 250px;
-    top: 0;
+    right: 20px;
+    top: 20px;
+  }
+  .activeItem {
+    // @include scale(1.2);
+    opacity: 1;
+
+  }
+  .unselectItem {
+
+    opacity: 0.6;
   }
   .swiper-slide {
 
@@ -673,11 +773,11 @@ body {
   .cancelBag {
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 18px;
     z-index: 9999;
   }
   .bagSwiperType {
-    padding-top: 50px;
+    padding-top: 35px;
   }
   .swiper-container-vertical {
     .swiper-slide {
@@ -691,20 +791,7 @@ body {
     }
   }
 }
-.editMode {
-  .arrow {
-    display: none!important;
-  }
-  .bodyChoice {
-    visibility: visible;
-  }
-  .cancelBag {
 
-  }
-  .ba_tabs.body .ok {
-    display: inline-block;
-  }
-}
 .btn {
   position: static;
   width: 110px;
