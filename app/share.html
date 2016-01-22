@@ -1,0 +1,646 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>奕欧来EUROPE | 新年心起点</title>
+
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/Swiper/dist/css/swiper.css">
+  <link rel="stylesheet" href="/bower_components/magnific-popup/dist/magnific-popup.css">
+  <link rel="stylesheet" href="/bower_components/wowjs/WOW-1.1.2/css/libs/animate.css">
+
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <script src="/scripts/scriptMeta.js"></script>
+
+
+
+  <!-- endbuild -->
+</head>
+
+<body>
+  <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    
+<!-- primary container -->
+<div class="container">
+
+  <!-- main -->
+  <div class="main">
+    <div class="scene startup">
+      <img src="images/startup.jpg" alt="" class="img-responsive center-block" />
+      <div class="container userAction gameStart">
+        <div class="row">
+          <img src="images/text/begin.png" alt="begin text" width="131" height="88" />
+        </div>
+        <div class="row">
+          <a href="#popup" class="open-popup-link " data-effect="mfp-3d-unfold">
+            <img class="btnStart" src="images/btn/btnStart.png" alt="开始游戏" width="66" height="27" />
+          </a>
+        </div>
+      </div>
+      <div id="popup" class="red-popup mfp-with-anim mfp-hide text-center ">
+        <h2>游戏方法</h2>
+        <p>
+          第一步 选择您的性别
+        </p>
+        <p>
+          第二步 选择五官和发型
+        </p>
+        <p>
+          第三步 选择服装、鞋子、包包和背景，创造您的新造型
+        </p>
+        <p>
+          第四步 许下您的新年心愿
+        </p>
+        <p>
+          留下联系方式，
+        </p>
+        <p>
+          关注奕欧来EUROPE微信号，
+        </p>
+        <p>
+          就能赢取金额为1-100元不等的微信红包，
+        </p>
+        <p>
+          更有欧洲时尚游大奖等着您
+        </p>
+        <p>
+          我们将抽取1位幸运获奖人赴欧洲购物村，
+        </p>
+        <p>
+          由客座造型师量身打造新造型！
+        </p>
+        <p>
+          <img class="btnBegin" src="images/btn/btnBegin.png" alt="开始游戏" width="45" height="24" />
+        </p>
+      </div>
+    </div>
+    <div class="scene genderBuild">
+      <div class="container title wow fadeInDown">
+        <p class="text-center ">
+          请选择你的性别
+        </p>
+      </div>
+      <div class="genderBox">
+        <div class="item female" val='female'>
+          <img src="images/data/female/female.png" alt="female" />
+        </div>
+        <div class="item male" val='male'>
+          <img src="images/data/male/male.png" alt="male" />
+        </div>
+      </div>
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+    </div>
+    <div class="scene faceBuild">
+      <canvas id="scene" width="340" height="570"></canvas>
+      <canvas id="scene2" width="340" height="570"></canvas>
+      <div class="faceOption bar">
+        <!-- main type buttons -->
+        <div class="ba_tabs face">
+          <a href="#head" val='0' class="button faceItem head">Head</a>
+          <a href="#fringes" val='1' class="button faceItem fringe">Fringe</a>
+          <a href="#eyes" val='2' class="button faceItem eye">Eyes</a>
+          <a href="#mouths" val='3' class="button faceItem mouth">Mouth</a>
+        </div>
+        <!-- end of main type buttons -->
+      </div>
+      <div class="elementSwiper femaleFace swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="headSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="fringeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="eyeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="mouthSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="elementSwiper maleFace swiper-container">
+        <div class="swiper-wrapper">
+          <div class="screen swiper-slide">
+            <div class="headSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+                <div class="swiper-slide" val="5">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="fringeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="eyeSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen swiper-slide">
+            <div class="mouthSwiperType swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" val="0">
+
+                </div>
+                <div class="swiper-slide" val="1">
+
+                </div>
+                <div class="swiper-slide" val="2">
+
+                </div>
+                <div class="swiper-slide" val="3">
+
+                </div>
+                <div class="swiper-slide" val="4">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+    </div>
+    <div class="scene bodyBuild">
+      <!-- <img src="" id="face_result" alt="" /> -->
+      <canvas id="scene3" width="340" height="570"></canvas>
+      <canvas id="scene4" width="340" height="570"></canvas>
+      <canvas id="scene5" width="340" height="570"></canvas>
+      <div class="bodyOption bar">
+        <!-- main type buttons -->
+        <div class="ba_tabs body">
+          <a href="#cloth" val='0' data-draw-squence='2' class="button bodyItem cloth">Cloth</a>
+          <a href="#bag" val='1' data-draw-squence='3' class="button bodyItem bag">Bag</a>
+          <a href="#foot" val='2' data-draw-squence='4' class="button bodyItem shoes">Shoes</a>
+          <a href="#background" val='3' data-draw-squence='0' class="button bodyItem background">Background</a>
+          <a href="#" class="button bodyItem ok"></a>
+        </div>
+        <!-- end of main type buttons -->
+      </div>
+      <div class="bodyChoice">
+        <div class="elementSwiper femaleBody swiper-container">
+          <div class="swiper-wrapper">
+            <div class="screen swiper-slide">
+              <div class="clothSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+
+                  </div>
+                  <div class="swiper-slide" val="1">
+
+                  </div>
+                  <div class="swiper-slide" val="2">
+
+                  </div>
+                  <div class="swiper-slide" val="3">
+
+                  </div>
+                  <div class="swiper-slide" val="4">
+
+                  </div>
+                  <div class="swiper-slide" val="5">
+
+                  </div>
+                  <div class="swiper-slide" val="6">
+
+                  </div>
+                  <div class="swiper-slide" val="7">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen swiper-slide">
+              <img src="images/cancel.png" alt="" width="30" height="30" class="cancelBag center-block" />
+              <div class="bagSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+
+                  </div>
+                  <div class="swiper-slide" val="1">
+
+                  </div>
+                  <div class="swiper-slide" val="2">
+
+                  </div>
+                  <div class="swiper-slide" val="3">
+
+                  </div>
+                  <div class="swiper-slide" val="4">
+
+                  </div>
+                  <div class="swiper-slide" val="5">
+
+                  </div>
+                  <div class="swiper-slide" val="6">
+
+                  </div>
+                  <div class="swiper-slide" val="7">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen swiper-slide">
+              <div class="shoesSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+                  </div>
+                  <div class="swiper-slide" val="1">
+                  </div>
+                  <div class="swiper-slide" val="2">
+                  </div>
+                  <div class="swiper-slide" val="3">
+                  </div>
+                  <div class="swiper-slide" val="4">
+                  </div>
+                  <div class="swiper-slide" val="5">
+                  </div>
+                  <div class="swiper-slide" val="6">
+                  </div>
+                  <div class="swiper-slide" val="7">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen swiper-slide">
+              <div class="backgroundSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+                  </div>
+                  <div class="swiper-slide" val="1">
+                  </div>
+                  <div class="swiper-slide" val="2">
+                  </div>
+                  <div class="swiper-slide" val="3">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="elementSwiper maleBody swiper-container">
+          <div class="swiper-wrapper">
+
+            <div class="screen swiper-slide">
+              <div class="clothSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+
+                  </div>
+                  <div class="swiper-slide" val="1">
+
+                  </div>
+                  <div class="swiper-slide" val="2">
+
+                  </div>
+                  <div class="swiper-slide" val="3">
+
+                  </div>
+                  <div class="swiper-slide" val="4">
+
+                  </div>
+                  <div class="swiper-slide" val="5">
+
+                  </div>
+                  <div class="swiper-slide" val="6">
+
+                  </div>
+                  <div class="swiper-slide" val="7">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="screen swiper-slide">
+              <img src="images/cancel.png" alt="" width="30" height="30" class="cancelBag center-block" />
+              <div class="bagSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+                  </div>
+                  <div class="swiper-slide" val="1">
+                  </div>
+                  <div class="swiper-slide" val="2">
+                  </div>
+                  <div class="swiper-slide" val="3">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen swiper-slide">
+              <div class="shoesSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+                  </div>
+                  <div class="swiper-slide" val="1">
+                  </div>
+                  <div class="swiper-slide" val="2">
+                  </div>
+                  <div class="swiper-slide" val="3">
+                  </div>
+                  <div class="swiper-slide" val="4">
+                  </div>
+                  <div class="swiper-slide" val="5">
+                  </div>
+                  <div class="swiper-slide" val="6">
+                  </div>
+                  <div class="swiper-slide" val="7">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen swiper-slide">
+              <div class="backgroundSwiperType swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" val="0">
+                  </div>
+                  <div class="swiper-slide" val="1">
+                  </div>
+                  <div class="swiper-slide" val="2">
+                  </div>
+                  <div class="swiper-slide" val="3">
+                  </div>
+                  <div class="swiper-slide" val="4">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="bagHint wow fadeInDown">
+      </div>
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+    </div>
+    <div class="scene makeWish">
+      <div class="canvas-wrapper center-block">
+        <canvas  id="scene6" width="340" height="570"></canvas>
+      </div>
+      <input id="msg" rows="1" maxlength="15" placeholder="请写下您的心愿（15个字以内）" />
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+    </div>
+    <div class="scene contactInfo">
+
+      <div class="img-wrapper center-block">
+        <img src="" id="body_result" alt="" />
+      </div>
+      <div class="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <input type="text" name="name" value="">
+      <input type="text" name="name" value="">
+      <div class="arrow prevStep"></div>
+      <div class="arrow nextStep"></div>
+      <!-- <div id="generate">
+        <button class="button">Generate Image</button>
+      </div> -->
+    </div>
+    <div class="scene share">
+
+      <div class="img-wrapper center-block">
+        <img src="" id="share_result" alt="" />
+      </div>
+
+      <p>
+        text text QRcode
+      </p>
+    </div>
+  </div>
+  <!-- end of main -->
+</div>
+
+
+
+<!-- end of primary container -->
+<div class="result"></div>
+
+
+
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/plugins.js -->
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+  <script src="/bower_components/Swiper/dist/js/swiper.jquery.js"></script>
+  <script src="/bower_components/magnific-popup/dist/jquery.magnific-popup.js"></script>
+  <script src="/bower_components/wowjs/WOW-1.1.2/dist/wow.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+
+  <script type="text/javascript">
+    document.ontouchmove = function(e) {
+      e.preventDefault();
+    };
+    var browser = {
+      versions: function() {
+        var u = navigator.userAgent,
+          app = navigator.appVersion;
+        return {
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+          weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+          qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+      }(),
+      language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };
+    video = document.getElementById("video");
+
+    function is_iOS7() {
+      // 判断是否 iPhone 或者 iPod
+      if ((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
+        // 判断系统版本号是否大于 4
+        return Boolean(navigator.userAgent.match(/OS [7]_\d[_\d]* like Mac OS X/i));
+      } else {
+        return false;
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

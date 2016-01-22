@@ -196,7 +196,7 @@ var headPosY_onFacebuild_onIphone4 = 90;
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
 var bodyCanvasHeight = 570;
-var headPosX_onBodybuild = 125;
+var headPosX_onBodybuild = 123;
 var headPosY_onBodybuild = 70;
 // var headScaleW_onBodybuild = 0.24;
 // var headScaleH_onBodybuild = 0.24;
@@ -218,14 +218,15 @@ var bodyScaleH_onMakeWishbuild = 1;
 
 
 var timer;
+var timer2;
 var loader;
 var userMsg = {
   context: '',
   text: $('#msg').val(),
-  maxWidth: 100,
+  maxWidth: 280,
   lineHeight: 25,
-  x: 0,
-  y: 50,
+  x: 320/2,
+  y: 500,
   font: '25pt Calibri',
   fillStyle: '#333'
 };
@@ -246,6 +247,8 @@ var app = {
   nextStep: $('.nextStep'),
   prevStep: $('.prevStep'),
   faceItem: $('.faceItem'),
+  faceOption: $('.faceOption'),
+  bodyOption: $('.bodyOption'),
   bodyChoice: $('.bodyChoice'),
   bodyItem: $('.bodyItem').not('.ok'),
   bodyItemConfirm: $('.bodyItem').filter('.ok'),
@@ -320,6 +323,9 @@ var app = {
       var elementIndex = 0;
       var elementonSlideChangeEnd = {
           direction:'vertical',
+          swipeHandler:'.bala',
+          autoHeight:false,
+          setWrapperSize:true,
           onSlideChangeEnd: function(swiper, event) {
             elementIndex = swiper.activeIndex;
           }
@@ -331,10 +337,14 @@ var app = {
       if (gender == "female") {
         app.femaleFaceSwiperLayer.show();
         app.maleFaceSwiperLayer.hide();
+        app.faceOption.removeClass('male female').addClass('female');
+
         elementSwiper = new Swiper(app.femaleFaceSwiperLayer, elementonSlideChangeEnd);
       } else {
         app.maleFaceSwiperLayer.show();
         app.femaleFaceSwiperLayer.hide();
+        app.faceOption.removeClass('male female').addClass('male');
+
         elementSwiper = new Swiper(app.maleFaceSwiperLayer, elementonSlideChangeEnd);
       }
 
@@ -346,7 +356,7 @@ var app = {
       //TODO: load gender setter
       var makeItLoad = function() {
         //load assets
-        assetsPrepare(gender, function() {
+        assetsPrepareForFace(gender, function() {
           $thisContainer.data('gender', gender);
         });
       }
@@ -388,6 +398,7 @@ var app = {
     //step 3 build body item
     container: $('.bodyBuild'),
     stepFunction: function() {
+      // console.log('step3')
       this.container.show().siblings().hide();
       var $thisContainer = this.container;
       //face element swiper
@@ -395,6 +406,12 @@ var app = {
       var elementIndex = 0;
       var elementonSlideInit = {
         direction:'horizontal',
+        setWrapperSize:true,
+        autoHeight:true,
+        spaceBetween:5,
+        // allowSwipeToPrev:false,
+        // allowSwipeToNext:false,
+        swipeHandler:'.bala',
         onInit: function(swiper, event) {
           elementIndex = app.bodyItem.eq(0).attr('data-draw-squence');
         }
@@ -402,14 +419,38 @@ var app = {
       //app.swiperLayer.hide();
       app.bodyItem.fadeIn(2000);
       if (gender == "female") {
+        // console.log(gender);
         app.femaleBodySwiperLayer.show();
         app.maleBodySwiperLayer.hide();
+        app.bodyOption.removeClass('male female').addClass('female');
+
         elementSwiper = new Swiper(app.femaleBodySwiperLayer,elementonSlideInit);
       } else {
-        app.maleFaceSwiperLayer.show();
-        app.femaleFaceSwiperLayer.hide();
+        // console.log(gender);
+
+        app.maleBodySwiperLayer.show();
+        app.femaleBodySwiperLayer.hide();
+        app.bodyOption.removeClass('male female').addClass('male');
+
         elementSwiper = new Swiper(app.maleBodySwiperLayer,elementonSlideInit);
       }
+      //TODO: load gender setter
+      var makeItLoad = function() {
+        //load assets
+        assetsPrepareForBody(gender, function() {
+          $thisContainer.data('gender', gender);
+        });
+      }
+
+      if ($thisContainer.data('gender')) {
+        //if didn't loaded assets
+        if ($thisContainer.data('gender') == gender) {} else {
+          makeItLoad();
+        }
+      } else {
+        makeItLoad();
+      }
+
 
       if (app.bodyItemHasBag == true){
         $(canvas5).show();
@@ -425,6 +466,8 @@ var app = {
         $thisContainer.addClass('editMode');
         elementSwiper.slideTo($(this).attr('val'));
         elementIndex = $(this).attr('data-draw-squence');
+        console.log(elementIndex);
+
       });
       app.bodyItemConfirm.on('click',function(e){
         e.preventDefault();
@@ -441,6 +484,7 @@ var app = {
             onSlideChangeStart: function(swiper) {
               bodyObject[i]['iSpr'] = parseInt(swiper.activeIndex);
             },
+            setWrapperSize:true,
             centeredSlides: false,
             slidesPerView: elementItemSize,
             direction: 'vertical',
@@ -448,9 +492,6 @@ var app = {
             allowSwipeToNext: false,
             onTap: function(swiper, event) {
               bodyObject[elementIndex]['iSpr'] = parseInt(swiper.clickedIndex);
-              bodyObject[elementIndex]['instance'].activeIndex=3
-              bodyObject[elementIndex]['instance'].updateProgress();
-              console.log(bodyObject[elementIndex]['instance'].activeIndex);
 
             }
           });
@@ -480,12 +521,7 @@ var app = {
 
       //bag hint
       app.bodyBagHint.on('click',function(){
-
-      //console.log('bag info',  bodyObject[3]['iSpr']);
-
         var selectBagHTML = bagInfo[bodyObject[3]['iSpr']]['html'];
-
-
         $.magnificPopup.open({
           mainClass:'bag-info-popup mfp-3d-unfold',
           items: {
@@ -494,8 +530,6 @@ var app = {
           tError: '<a href="%url%">The content</a> could not be loaded.',
           type: 'inline'
         });
-
-
       });
 
     }
@@ -503,40 +537,42 @@ var app = {
     //step4. put message on final result
     container: $('.makeWish'),
     stepFunction: function() {
-      app.swiperLayer.hide();
+      //app.swiperLayer.hide();
       this.container.show().siblings().hide();
-
-      //Btn control
-
 
     }
   },{
     //step5. leave contact info and preview
     container: $('.contactInfo'),
     stepFunction: function() {
-      app.swiperLayer.hide();
       this.container.show().siblings().hide();
-      //Btn control
-      exportResult()}
+      exportResult()
 
-
+    }
+  },{
+      //step6. share result
+      container: $('.share'),
+      stepFunction: function() {
+        this.container.show().siblings().hide();
+      }
   }]
 }
 
 
 
-function clear() {
+function clearFace() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
+
+}
+function clearBody() {
   ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
   ctx4.clearRect(0, 0, ctx4.canvas.width, ctx4.canvas.height);
   ctx5.clearRect(0, 0, ctx5.canvas.width, ctx5.canvas.height);
 }
-var img = new Image();
-var img2 = new Image();
 
-function drawScene() {
-  clear();
+function drawFaceScene() {
+  clearFace();
 
   //ctx bg>head>eyebrow>eye>fringe>mouth
   for (var i = 0; i < faceObject.length; i++) {
@@ -567,12 +603,12 @@ function drawScene() {
     }
   }
 
+}
+
+function drawBodyScene() {
+  clearBody();
+
   for (var i = 0; i < bodyObject.length; i++) {
-
-
-
-
-
 
       /// step 1
       var temp_canvas = document.createElement('canvas');
@@ -644,6 +680,9 @@ function drawScene() {
   ctx6.drawImage(canvas5, 0, 0, bodyCanvasWidth, bodyCanvasHeight, 0, 0, bodyCanvasWidth * bodyScaleW_onMakeWishbuild, bodyCanvasHeight * bodyScaleH_onMakeWishbuild);
   //console.log(bodyCanvasHeight);
 
+
+}
+function exportResult() {
   //put wish on ctx6
   userMsg.text = $('#msg').val();
   userMsg.context = ctx6;
@@ -652,9 +691,6 @@ function drawScene() {
   wrapText(userMsg.context, userMsg.text, userMsg.x, userMsg.y, userMsg.maxWidth, userMsg.lineHeight);
 
 
-}
-
-function exportResult() {
   var temp_ctx, temp_canvas;
   temp_canvas = document.createElement('canvas');
   temp_ctx = temp_canvas.getContext('2d');
@@ -670,6 +706,8 @@ function exportResult() {
   temp_ctx.putImageData(zdata, 0, 0);
   var vData = temp_canvas.toDataURL("image/jpeg", 1.0);
   $('#body_result').attr('src', vData);
+  $('#share_result').attr('src', vData);
+
   //sendResultToServer(vData);
 };
 function sendResultToServer(vData) {
@@ -714,20 +752,50 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
       line = testLine;
     }
   }
+  context.textAlign = "center";
   context.fillText(line, x, y);
 };
+function assetsPrepareForFace(gender,callback){
 
-function assetsPrepare(gender, callback) {
 
+    if (typeof(timer) == 'number') {
+      clearInterval(timer);
+    }
+
+    //canvas
+    canvas = document.getElementById('scene');
+    ctx = canvas.getContext('2d');
+    canvas2 = document.getElementById('scene2');
+    ctx2 = canvas2.getContext('2d');
+
+
+
+    //face Part
+    var oEyesImage = new Image();
+    oEyesImage.src = website_url + 'images/data/' + gender + '/eyes.png';
+    oEyesImage.onload = function() {};
+    var oMouthsImage = new Image();
+    oMouthsImage.src = website_url + 'images/data/' + gender + '/mouths.png';
+    oMouthsImage.onload = function() {};
+    var oFaceImage = new Image();
+    oFaceImage.src = website_url + 'images/data/' + gender + '/face.png';
+    oFaceImage.onload = function() {};
+    var oFringeImage = new Image();
+    oFringeImage.src = website_url + 'images/data/' + gender + '/fringes.png';
+    oFringeImage.onload = function() {};
+
+    //face part object
+    faceObject[0] = new Head(0, 20, 0, 0, faceCanvasWidth, 200, oFaceImage);
+    faceObject[1] = new Fringe(0, -60, 0, 0, faceCanvasWidth, 500, oFringeImage);
+    faceObject[2] = new Eye(0, 20, 0, 0, faceCanvasWidth, 200, oEyesImage);
+    faceObject[3] = new Mouth(0, 20, 0, 0, faceCanvasWidth, 200, oMouthsImage);
+
+    timer = setInterval(drawFaceScene, 100);
+}
+function assetsPrepareForBody(gender, callback) {
   if (typeof(timer) == 'number') {
-    clearInterval(timer);
+    clearInterval(timer2);
   }
-
-  //canvas
-  canvas = document.getElementById('scene');
-  ctx = canvas.getContext('2d');
-  canvas2 = document.getElementById('scene2');
-  ctx2 = canvas2.getContext('2d');
   canvas3 = document.getElementById('scene3');
   ctx3 = canvas3.getContext('2d');
   canvas4 = document.getElementById('scene4');
@@ -736,21 +804,6 @@ function assetsPrepare(gender, callback) {
   ctx5 = canvas5.getContext('2d');
   canvas6 = document.getElementById('scene6');
   ctx6 = canvas6.getContext('2d');
-
-
-  //face Part
-  var oEyesImage = new Image();
-  oEyesImage.src = website_url + 'images/data/' + gender + '/eyes.png';
-  oEyesImage.onload = function() {};
-  var oMouthsImage = new Image();
-  oMouthsImage.src = website_url + 'images/data/' + gender + '/mouths.png';
-  oMouthsImage.onload = function() {};
-  var oFaceImage = new Image();
-  oFaceImage.src = website_url + 'images/data/' + gender + '/face.png';
-  oFaceImage.onload = function() {};
-  var oFringeImage = new Image();
-  oFringeImage.src = website_url + 'images/data/' + gender + '/fringes.png';
-  oFringeImage.onload = function() {};
 
   //body Part
   var oBackgroundImage = new Image();
@@ -769,13 +822,6 @@ function assetsPrepare(gender, callback) {
   oShoesImage.src = website_url + 'images/data/' + gender + '/shoes.png';
   oShoesImage.onload = function() {};
 
-
-  //face part object
-  faceObject[0] = new Head(0, 20, 0, 0, faceCanvasWidth, 200, oFaceImage);
-  faceObject[1] = new Fringe(0, -60, 0, 0, faceCanvasWidth, 500, oFringeImage);
-  faceObject[2] = new Eye(0, 20, 0, 0, faceCanvasWidth, 200, oEyesImage);
-  faceObject[3] = new Mouth(0, 20, 0, 0, faceCanvasWidth, 200, oMouthsImage);
-
   //body part object
   bodyObject[0] = new Background(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBackgroundImage);
   bodyObject[1] = new Body(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBodyImage);
@@ -783,7 +829,8 @@ function assetsPrepare(gender, callback) {
   bodyObject[3] = new Bag(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oBagImage);
   bodyObject[4] = new Shoes(0, 0, 0, 0, bodyCanvasWidth, bodyCanvasHeight, oShoesImage);
 
-  timer = setInterval(drawScene, 100);
+  timer2 = setInterval(drawBodyScene, 100);
+
 };
 
 
