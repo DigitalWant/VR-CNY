@@ -1,0 +1,32 @@
+{% extends "layout.html" %} {% block content %}
+<!-- primary container -->
+<div class="container">
+
+  <!-- main -->
+  <div class="main">
+    <div class="scene result">
+
+      <div class="img-wrapper center-block">
+        <img src="" id="share_result" alt="" />
+      </div>
+      <div class="center-block share-text">
+        <img src="images/qr.png" alt="" class="pull-left" width="45" height="45" />
+        <button type="button" class="btn btn-default pull-right shareHint" aria-label="Left Align">
+          分享
+        </button>
+        <p>
+          感谢参与 长按二维码 关注奕欧来 EUROPE 第一时间得到获奖信息
+        </p>
+      </div>
+
+    </div>
+  </div>
+  <!-- end of main -->
+</div>
+
+
+
+<!-- end of primary container -->
+<div class="result"></div>
+
+{% endblock %}
