@@ -191,7 +191,7 @@ var headPosX_onFacebuild = 0;
 var headPosY_onFacebuild = 10;
 var headScaleW_onFacebuild = 1;
 var headScaleH_onFacebuild = 1;
-var headPosY_onFacebuild_onIphone4 = 90;
+var headPosY_onFacebuild_onIphone4 = 0;
 
 //adjust head on bodybuild
 var bodyCanvasWidth = 340;
@@ -226,9 +226,9 @@ var userMsg = {
   maxWidth: 280,
   lineHeight: 25,
   x: 320/2,
-  y: 500,
+  y: 520,
   font: '25pt Calibri',
-  fillStyle: '#333'
+  fillStyle: '#8d7141'
 };
 var assetsItems = [];
 
@@ -451,7 +451,6 @@ var app = {
         makeItLoad();
       }
 
-
       if (app.bodyItemHasBag == true){
         $(canvas5).show();
         app.bodyBagHint.show();
@@ -459,6 +458,7 @@ var app = {
         $(canvas5).hide();
         app.bodyBagHint.hide()
       }
+
       //body action bar
       app.bodyItem.on('click', function(e) {
         e.preventDefault();
@@ -492,7 +492,7 @@ var app = {
             allowSwipeToNext: false,
             onTap: function(swiper, event) {
               bodyObject[elementIndex]['iSpr'] = parseInt(swiper.clickedIndex);
-
+            $(bodyObject[elementIndex]['instance']['clickedSlide']).removeClass('unselectItem').addClass('activeItem').siblings().removeClass('activeItem').addClass('unselectItem');
             }
           });
         }
@@ -755,6 +755,8 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
   context.textAlign = "center";
   context.fillText(line, x, y);
 };
+
+//function for build faceItem
 function assetsPrepareForFace(gender,callback){
 
 
@@ -792,6 +794,8 @@ function assetsPrepareForFace(gender,callback){
 
     timer = setInterval(drawFaceScene, 100);
 }
+
+//function for build bodyItem
 function assetsPrepareForBody(gender, callback) {
   if (typeof(timer) == 'number') {
     clearInterval(timer2);
@@ -807,7 +811,7 @@ function assetsPrepareForBody(gender, callback) {
 
   //body Part
   var oBackgroundImage = new Image();
-  oBackgroundImage.src = website_url + 'images/data/' + gender + '/background.png';
+  oBackgroundImage.src = website_url + 'images/data/background.png';
   oBackgroundImage.onload = function() {};
   var oBodyImage = new Image();
   oBodyImage.src = website_url + 'images/data/' + gender + '/body.png';

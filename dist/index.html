@@ -90,7 +90,6 @@
           <img src="images/data/male/male.png" alt="male" />
         </div>
       </div>
-      <div class="arrow prevStep"></div>
       <div class="arrow nextStep"></div>
     </div>
     <div class="scene faceBuild">
@@ -511,7 +510,7 @@
     </div>
     <div class="scene makeWish">
       <div class="canvas-wrapper center-block">
-        <canvas  id="scene6" width="340" height="570"></canvas>
+        <canvas id="scene6" width="340" height="570"></canvas>
       </div>
       <input id="msg" rows="1" maxlength="15" placeholder="请写下您的心愿（15个字以内）" />
       <div class="arrow prevStep"></div>
@@ -529,8 +528,16 @@
         <div></div>
         <div></div>
       </div>
-      <input type="text" name="name" value="">
-      <input type="text" name="name" value="">
+      <div class="fieldset">
+        <div class="form-group">
+          <label for="exampleInputName2">姓名:</label>
+          <input type="text" class="form-control" id="exampleInputName2">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">电话:</label>
+          <input type="text" class="form-control" id="exampleInputEmail2">
+        </div>
+      </div>
       <div class="arrow prevStep"></div>
       <div class="arrow nextStep"></div>
       <!-- <div id="generate">
@@ -542,10 +549,17 @@
       <div class="img-wrapper center-block">
         <img src="" id="share_result" alt="" />
       </div>
+      <div class="center-block share-text">
+        <img src="images/qr.png" alt="" class="pull-left" width="45" height="45" />
+        <button type="button" class="btn btn-default pull-right" aria-label="Left Align">
+          分享
+        </button>
+        <p>
+          感谢参与 长按二维码 关注奕欧来 EUROPE 第一时间得到获奖信息
+        </p>
+      </div>
+      <div class="arrow prevStep"></div>
 
-      <p>
-        text text QRcode
-      </p>
     </div>
   </div>
   <!-- end of main -->
@@ -592,11 +606,18 @@
     };
     video = document.getElementById("video");
 
+    if(navigator.userAgent,navigator.userAgent.match(/OS [4]_\d[_\d]* like Mac OS X/i)){
+      //alert('sorry, we are not support for iphone4')
+      $('body').addClass('itsIphone4');
+    }
+
     function is_iOS7() {
       // 判断是否 iPhone 或者 iPod
       if ((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
         // 判断系统版本号是否大于 4
         return Boolean(navigator.userAgent.match(/OS [7]_\d[_\d]* like Mac OS X/i));
+
+
       } else {
         return false;
       }

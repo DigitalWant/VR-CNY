@@ -592,11 +592,18 @@
     };
     video = document.getElementById("video");
 
+    if(navigator.userAgent,navigator.userAgent.match(/OS [4]_\d[_\d]* like Mac OS X/i)){
+      //alert('sorry, we are not support for iphone4')
+      $('body').addClass('itsIphone4');
+    }
+
     function is_iOS7() {
       // 判断是否 iPhone 或者 iPod
       if ((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
         // 判断系统版本号是否大于 4
         return Boolean(navigator.userAgent.match(/OS [7]_\d[_\d]* like Mac OS X/i));
+
+
       } else {
         return false;
       }
