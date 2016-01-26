@@ -744,6 +744,14 @@ body {
     display: none;
   }
 }
+.share {
+  .img-wrapper {
+    height: 360px;
+  }
+  #share_result {
+    height: 360px;
+  }
+}
 .elementSwiper.femaleFace,
 .elementSwiper.maleFace {
   width: 260px;

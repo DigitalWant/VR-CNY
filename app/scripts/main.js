@@ -945,17 +945,17 @@ var bagInfo = {
 
 
 
-      // if ($('#share_result').size() > 0) {
-      //   //console.log('test');
-      //   app['stepProgram'][6]['stepFunction']();
-      //
-      // } else {
-      //   //init the first step
-      //   //app['stepProgram'][app.step]['stepFunction']();
-      //   app['stepProgram'][app.step]['stepFunction']();
-      // }
+      if ($('#share_result').size() > 0) {
+        //console.log('test');
+        app['stepProgram'][6]['stepFunction']();
 
-      app['stepProgram'][app.step]['stepFunction']();
+      } else {
+        //init the first step
+        //app['stepProgram'][app.step]['stepFunction']();
+        app['stepProgram'][app.step]['stepFunction']();
+      }
+
+      // app['stepProgram'][app.step]['stepFunction']();
 
 
     });
