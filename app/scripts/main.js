@@ -166,7 +166,7 @@ var bagInfo = {
   'male': [{
     hintX: 200,
     hintY: 210,
-    html: "<div class='pale-popup mfp-with-anim text-center'><img src='"+website_url+"images/promo/brand1.png' class='brand' /> <img src='"+website_url+"images/promo/009.png' class='bag' /> <h3>Small Sullivan Messenger </h3> <p>货号：F72108MID</p> <p>想了解产品详情，请至各大购物村官网的Coach专页</p> </div>"
+    html: "<div class='pale-popup mfp-with-anim text-center'><img src='"+website_url+"images/promo/brand1.png' class='brand' /> <img src='"+website_url+"images/promo/009.png' class='bag' /> <h3>Bowery Crossbody</h3> <p>货号：F71842BLK</p>  <p>想了解产品详情，请至各大购物村官网的Coach专页</p> </div>"
   }, {
     hintX: 200,
     hintY: 210,
@@ -174,7 +174,7 @@ var bagInfo = {
   }, {
     hintX: 200,
     hintY: 210,
-    html: "<div class='pale-popup mfp-with-anim text-center'><img src='"+website_url+"images/promo/brand1.png' class='brand' /> <img src='"+website_url+"images/promo/011.png' class='bag' /> <h3>Bowery Crossbody</h3> <p>货号：F71842BLK</p> <p>想了解产品详情，请至各大购物村官网的Coach专页</p> </div>"
+    html: "<div class='pale-popup mfp-with-anim text-center'><img src='"+website_url+"images/promo/brand1.png' class='brand' /> <img src='"+website_url+"images/promo/011.png' class='bag' /> <h3>Small Sullivan Messenger </h3> <p>货号：F72108MID</p> <p>想了解产品详情，请至各大购物村官网的Coach专页</p> </div>"
   }, {
     hintX: 70,
     hintY: 210,
