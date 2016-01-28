@@ -314,6 +314,14 @@ body {
   #scene5 {
     z-index: 101;
   }
+  #scene3,#scene32,#scene4,#scene5 {
+    width: 280px;
+    left:20px;
+    top:10px;
+  }
+  #scene32 {
+    z-index: 102;
+  }
 }
 .page-view {
   display: none;
@@ -975,6 +983,7 @@ body {
   }
 }
 #face_result {
+  display: none;
   position: fixed;
   top: 73px;
   z-index: 102;
