@@ -287,6 +287,7 @@ var app = {
   bodyBagHint: $('.bagHint'),
   shareHint: $('.shareHint'),
   generate: $('#generate'),
+  shareqr:$('#shareqrpopup'),
   stepProgram: [{
     //step 0. game start
     container: $('.startup'),
@@ -606,14 +607,18 @@ var app = {
     stepFunction: function() {
       //app.swiperLayer.hide();
       this.container.show().siblings().hide();
-
+      if (typeof(timer) == 'number') {
+        clearInterval(timer2);
+      }
+      // Signature();
     }
   }, {
     //step5. leave contact info and preview
     container: $('.contactInfo'),
     stepFunction: function() {
       this.container.show().siblings().hide();
-      exportResult()
+      Signature();
+
 
     }
   }, {
@@ -637,6 +642,19 @@ var app = {
         });
       });
 
+      console.log('test');
+      app.shareqr.on('click',function(){
+
+        $.magnificPopup.open({
+          mainClass: 'share-qr-popup mfp-3d-unfold',
+          items: {
+            src: '<div><img src="'+website_url+'/images/qr.png" width="300" height="300" /></div>'
+          },
+          tError: '<a href="%url%">The content</a> could not be loaded.',
+          type: 'inline'
+        });
+
+      })
 
 
     }
@@ -917,7 +935,7 @@ function assetsPrepareForFace(gender, callback) {
 
 //function for build bodyItem
 function assetsPrepareForBody(gender, callback) {
-  if (typeof(timer) == 'number') {
+  if (typeof(timer2) == 'number') {
     clearInterval(timer2);
   }
   canvas3 = document.getElementById('scene3');
@@ -958,7 +976,19 @@ function assetsPrepareForBody(gender, callback) {
   timer2 = setInterval(drawBodyScene, 100);
 
 };
+function Signature() {
 
+  var oSignImage = new Image();
+  oSignImage.src = website_url + 'images/sign.png';
+  oSignImage.onload = function() {
+
+    ctx6.drawImage(oSignImage,0,0,172,87,200,410,120,61);
+    //console.log('u');
+    exportResult();
+
+  };
+
+};
 $(function() {
 
   checkPortrait();
@@ -996,6 +1026,8 @@ $(function() {
   if ($('#share_result').size() > 0) {
     //console.log('test');
     app['stepProgram'][6]['stepFunction']();
+
+
 
   } else {
     //init the first step
